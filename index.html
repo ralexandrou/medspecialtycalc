@@ -1,0 +1,3168 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedSpecialty Navigator - Προσομοιωτής Επιλογής Ιατρικής Ειδικότητας</title>
+  <meta name="description" content="Επιστημονικός προσομοιωτής επιλογής ιατρικής ειδικότητας βασισμένος σε 7 διεθνείς βιβλιογραφικές μελέτες (AHP, Holland RIASEC, Controllable Lifestyle, Big Five).">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Stylesheet -->
+  <style>
+/* ===================================================================
+   MedSpecialty Navigator - Modern Clinical Theme
+   =================================================================== */
+
+:root {
+  --primary: #0f172a;
+  --primary-light: #1e293b;
+  --accent: #0d9488;
+  --accent-light: #14b8a6;
+  --accent-soft: #ccfbf1;
+  --blue: #0284c7;
+  --blue-soft: #e0f2fe;
+  --gold: #d97706;
+  --gold-soft: #fef3c7;
+  --silver: #475569;
+  --silver-soft: #f1f5f9;
+  --bronze: #b45309;
+  --bg-page: #f8fafc;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --border-focus: #0d9488;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ===================================================================
+   Header & Hero
+   =================================================================== */
+
+.header {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0f766e 100%);
+  color: #ffffff;
+  padding: 48px 0 40px;
+  border-bottom: 4px solid var(--accent);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.header::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(20, 184, 166, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-badge-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.badge-teal {
+  background: rgba(20, 184, 166, 0.2);
+  color: #5eead4;
+  border: 1px solid rgba(94, 234, 212, 0.4);
+}
+
+.badge-blue {
+  background: rgba(56, 189, 248, 0.2);
+  color: #7dd3fc;
+  border: 1px solid rgba(125, 211, 252, 0.4);
+}
+
+.hero-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  color: #ffffff;
+}
+
+.hero-title span {
+  color: #2dd4bf;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: #cbd5e1;
+  max-width: 850px;
+  margin-bottom: 24px;
+}
+
+.hero-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-light);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.35);
+}
+
+.btn-outline-light {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.btn-outline-light:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: #ffffff;
+}
+
+/* ===================================================================
+   Main Content Layout
+   =================================================================== */
+
+.main-content {
+  padding: 40px 0 80px;
+}
+
+.section-header {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-title i {
+  color: var(--accent);
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-top: 4px;
+}
+
+/* ===================================================================
+   Presets Toolbar
+   =================================================================== */
+
+.presets-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  margin-bottom: 30px;
+  box-shadow: var(--shadow-sm);
+}
+
+.presets-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.presets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 10px;
+}
+
+.preset-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: var(--transition);
+}
+
+.preset-btn i {
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+.preset-btn span {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.preset-btn:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ===================================================================
+   Simulator Grid & Criterion Cards
+   =================================================================== */
+
+.criteria-section-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 28px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.criteria-section-title i {
+  color: var(--accent);
+}
+
+.criteria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.criterion-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: var(--transition);
+}
+
+.criterion-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: #cbd5e1;
+}
+
+.criterion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.criterion-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1.35;
+}
+
+.criterion-weight {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #047857;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.criterion-desc {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin-bottom: 18px;
+  flex-grow: 1;
+}
+
+.slider-container {
+  margin-top: auto;
+}
+
+.slider-control-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.slider-track {
+  flex-grow: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+  background: #e2e8f0;
+  outline: none;
+  transition: background 0.2s;
+}
+
+.slider-track::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.slider-track::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  background: var(--accent-light);
+}
+
+.slider-value-bubble {
+  min-width: 42px;
+  height: 34px;
+  background: var(--primary);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  gap: 8px;
+}
+
+.slider-labels span {
+  max-width: 48%;
+  line-height: 1.2;
+}
+
+.slider-labels span:last-child {
+  text-align: right;
+}
+
+.criterion-source {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  margin-top: 10px;
+  padding-top: 6px;
+  border-top: 1px dashed #f1f5f9;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ===================================================================
+   Simulator Controls Action Bar
+   =================================================================== */
+
+.action-bar {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 32px;
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  bottom: 16px;
+  z-index: 50;
+}
+
+.action-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.toggle-switch-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.action-bar-right {
+  display: flex;
+  gap: 10px;
+}
+
+/* ===================================================================
+   Results Showcase - Top 5
+   =================================================================== */
+
+.results-section {
+  margin-top: 50px;
+  padding-top: 40px;
+  border-top: 2px solid var(--border);
+}
+
+.top5-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.specialty-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 26px 28px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  transition: var(--transition);
+  overflow: hidden;
+}
+
+.specialty-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.specialty-card.rank-1 {
+  border-left: 8px solid #f59e0b;
+  background: linear-gradient(to right, #fffbeb 0%, #ffffff 15%);
+}
+
+.specialty-card.rank-2 {
+  border-left: 8px solid #94a3b8;
+}
+
+.specialty-card.rank-3 {
+  border-left: 8px solid #d97706;
+}
+
+.specialty-card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.specialty-title-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.rank-pill {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.rank-1 .rank-pill { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.rank-2 .rank-pill { background: linear-gradient(135deg, #94a3b8, #64748b); }
+.rank-3 .rank-pill { background: linear-gradient(135deg, #b45309, #78350f); }
+.rank-4 .rank-pill, .rank-5 .rank-pill { background: #334155; }
+
+.specialty-name-wrap h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.25;
+}
+
+.specialty-name-wrap .specialty-en {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.score-badge-wrap {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.score-number {
+  font-size: 2.1rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.score-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-top: 3px;
+}
+
+.specialty-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.meta-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.tag-holland {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.tag-lifestyle {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.tag-category {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.specialty-summary {
+  font-size: 0.95rem;
+  color: #334155;
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+
+/* Scientific Justification Box */
+.justification-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin-bottom: 18px;
+}
+
+.justification-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.justification-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.justification-list li {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #1e293b;
+  position: relative;
+  padding-left: 18px;
+}
+
+.justification-list li::before {
+  content: "•";
+  color: var(--accent);
+  position: absolute;
+  left: 0;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.citations-row {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed #cbd5e1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.citation-chip {
+  font-size: 0.72rem;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* Pros and Cons Box */
+.pros-cons-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.pro-box, .con-box {
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+}
+
+.pro-box { border-top: 3px solid #10b981; }
+.con-box { border-top: 3px solid #f43f5e; }
+
+.box-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pro-box .box-title { color: #047857; }
+.con-box .box-title { color: #be123c; }
+
+.box-list {
+  list-style: none;
+  font-size: 0.82rem;
+  color: #475569;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.box-list li {
+  position: relative;
+  padding-left: 14px;
+  line-height: 1.35;
+}
+
+.pro-box .box-list li::before {
+  content: "✓";
+  color: #10b981;
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.con-box .box-list li::before {
+  content: "!";
+  color: #f43f5e;
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+/* ===================================================================
+   Full Ranking Section
+   =================================================================== */
+
+.full-ranking-section {
+  margin-top: 60px;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tab-btn {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.tab-btn:hover, .tab-btn.active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.search-box {
+  position: relative;
+  min-width: 240px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 8px 14px 8px 34px;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  outline: none;
+  background: #ffffff;
+  transition: var(--transition);
+}
+
+.search-box input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+}
+
+.search-box i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+.ranking-table-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.ranking-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.ranking-table th {
+  background: #f8fafc;
+  padding: 12px 18px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--border);
+}
+
+.ranking-table td {
+  padding: 14px 18px;
+  font-size: 0.88rem;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.ranking-table tr:hover td {
+  background-color: #f8fafc;
+}
+
+.table-rank-cell {
+  font-weight: 800;
+  color: var(--text-muted);
+  width: 60px;
+}
+
+.table-specialty-cell strong {
+  color: var(--primary);
+  font-size: 0.95rem;
+  display: block;
+}
+
+.table-specialty-cell small {
+  color: var(--text-muted);
+}
+
+.match-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 160px;
+}
+
+.progress-bar-bg {
+  flex-grow: 1;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #14b8a6, #0d9488);
+  border-radius: 9999px;
+  transition: width 0.4s ease;
+}
+
+.match-percent-text {
+  font-weight: 700;
+  font-size: 0.9rem;
+  min-width: 48px;
+  text-align: right;
+  color: var(--primary);
+}
+
+/* ===================================================================
+   RIASEC 2D Career Map Section
+   =================================================================== */
+
+.map-section {
+  margin-top: 60px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+}
+
+.map-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.map-canvas-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+#riasecCanvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #ffffff;
+  border-radius: var(--radius-sm);
+  border: 1px solid #e2e8f0;
+}
+
+.map-legend-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.legend-block {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+}
+
+.legend-block h4 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-block p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+/* ===================================================================
+   Scientific Methodology Modal
+   =================================================================== */
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-backdrop.active {
+  display: flex;
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.modal-header h2 {
+  font-size: 1.35rem;
+  color: var(--primary);
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.modal-close-btn:hover {
+  color: #0f172a;
+}
+
+.modal-body {
+  padding: 28px;
+}
+
+.paper-item {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin-bottom: 18px;
+}
+
+.paper-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+.paper-authors {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.paper-contribution {
+  font-size: 0.86rem;
+  color: #334155;
+  background: #ffffff;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border-left: 3px solid var(--accent);
+  margin-top: 8px;
+}
+
+/* ===================================================================
+   Footer
+   =================================================================== */
+
+.footer {
+  background: #0f172a;
+  color: #94a3b8;
+  padding: 40px 0;
+  font-size: 0.86rem;
+  border-top: 1px solid #1e293b;
+  text-align: center;
+}
+
+.footer a {
+  color: #2dd4bf;
+  text-decoration: none;
+}
+
+/* ===================================================================
+   Print Media Query
+   =================================================================== */
+
+@media print {
+  .header, .presets-card, .criteria-grid, .action-bar, .filter-bar, .modal-backdrop, .footer, .btn, .map-section {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff;
+    color: #000000;
+    font-size: 11pt;
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .specialty-card {
+    page-break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-title { font-size: 1.8rem; }
+  .criteria-grid { grid-template-columns: 1fr; }
+  .map-container { grid-template-columns: 1fr; }
+  .pros-cons-grid { grid-template-columns: 1fr; }
+  .action-bar { position: static; flex-direction: column; align-items: stretch; }
+}
+
+</style>
+</head>
+<body>
+
+  <!-- ===================================================================
+       HEADER & HERO
+       =================================================================== -->
+  <header class="header">
+    <div class="container">
+      <div class="hero-badge-wrap">
+        <span class="badge badge-teal"><i class="fa-solid fa-graduation-cap"></i> Ιατρική Εκπαίδευση & Σταδιοδρομία</span>
+        <span class="badge badge-blue"><i class="fa-solid fa-book-medical"></i> Τεκμηρίωση από 7 Διεθνείς Μελέτες</span>
+      </div>
+      <h1 class="hero-title">MedSpecialty <span>Navigator</span></h1>
+      <p class="hero-subtitle">
+        Ένας αντικειμενικός, επιστημονικά σταθμισμένος προσομοιωτής επιλογής ιατρικής ειδικότητας. Αξιολογήστε 10 παραμέτρους (κλίμακα 1-10) και ανακαλύψτε τις <strong>Top 5 ειδικότητες</strong> που ταιριάζουν στο προφίλ σας, συνοδευόμενες από λεπτομερή βιβλιογραφική ανάλυση και την πλήρη κατάταξη όλων των 30 ειδικοτήτων.
+      </p>
+      <div class="hero-nav">
+        <a href="#simulator" class="btn btn-primary"><i class="fa-solid fa-sliders"></i> Έναρξη Προσομοίωσης</a>
+        <button id="openDocsModalBtn" class="btn btn-outline-light"><i class="fa-solid fa-file-lines"></i> Βιβλιογραφική Τεκμηρίωση (7 Μελέτες)</button>
+        <button id="printReportBtn" class="btn btn-outline-light"><i class="fa-solid fa-print"></i> Εκτύπωση Αναφοράς</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================================
+       MAIN CONTENT
+       =================================================================== -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- PRESETS TOOLBAR -->
+      <section class="presets-card">
+        <div class="presets-title">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> Γρήγορα Ενδεικτικά Προφίλ (Presets)
+        </div>
+        <div class="presets-grid" id="presetsGrid">
+          <!-- Injected via JavaScript -->
+        </div>
+      </section>
+
+      <!-- SIMULATOR SECTION -->
+      <section id="simulator">
+        <div class="section-header">
+          <h2 class="section-title"><i class="fa-solid fa-sliders"></i> Παράμετροι Προσομοίωσης (Βαθμολόγηση 1-10)</h2>
+          <p class="section-subtitle">
+            Κάθε παράμετρος βασίζεται στα ευρήματα των αναλύσεων AHP (Chang et al.), των παραγόντων Kiolbassa, της θεωρίας Controllable Lifestyle (Resneck) και των ψυχολογικών ανασκοπήσεων (Peroš et al.). Σύρετε τη μπάρα από το 1 έως το 10.
+          </p>
+        </div>
+
+        <form id="simulatorForm">
+          <!-- Categories & Sliders injected dynamically via JS -->
+          <div id="criteriaContainer"></div>
+
+          <!-- Sticky Action Bar -->
+          <div class="action-bar">
+            <div class="action-bar-left">
+              <label class="toggle-switch-wrap">
+                <input type="checkbox" id="liveUpdateToggle" checked>
+                <span><i class="fa-solid fa-bolt"></i> Ζωντανός υπολογισμός αποτελεσμάτων</span>
+              </label>
+            </div>
+            <div class="action-bar-right">
+              <button type="button" id="resetBtn" class="btn btn-outline-light" style="color: var(--primary); border-color: var(--border);">
+                <i class="fa-solid fa-rotate-left"></i> Επαναφορά
+              </button>
+              <button type="submit" class="btn btn-primary">
+                <i class="fa-solid fa-calculator"></i> Υπολογισμός Συμβατότητας
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- RESULTS SECTION - TOP 5 -->
+      <section id="results" class="results-section">
+        <div class="section-header">
+          <h2 class="section-title"><i class="fa-solid fa-trophy"></i> Οι Top 5 Ειδικότητες σας</h2>
+          <p class="section-subtitle">
+            Αποτελέσματα πολυκριτηριακής ανάλυσης AHP-weighted Euclidean Distance με αναλυτική επεξήγηση και παραπομπές στις επιστημονικές μελέτες.
+          </p>
+        </div>
+
+        <div class="top5-grid" id="top5Container">
+          <!-- Injected via JavaScript -->
+        </div>
+      </section>
+
+      <!-- INTERACTIVE RIASEC 2D MAP -->
+      <section class="map-section" id="careerMap">
+        <div class="section-header">
+          <h2 class="section-title"><i class="fa-solid fa-compass"></i> Χάρτης Ιατρικής Σταδιοδρομίας (Holland RIASEC 2D Map)</h2>
+          <p class="section-subtitle">
+            Αναπαράσταση βάσει της μελέτης των <strong>Petrides & McManus (2004, BMC Medical Education)</strong>. Ο χάρτης απεικονίζει τις 30 ειδικότητες στους άξονες «Things - People» και «Data - Ideas». Ο φωτεινός δείκτης υποδεικνύει τη δική σας προσωπική θέση!
+          </p>
+        </div>
+
+        <div class="map-container">
+          <div class="map-canvas-card">
+            <canvas id="riasecCanvas" width="700" height="520"></canvas>
+          </div>
+          <div class="map-legend-card">
+            <div class="legend-block">
+              <h4><i class="fa-solid fa-circle" style="color: #0284c7;"></i> Οριζόντιος Άξονας: Things vs People</h4>
+              <p><strong>Things (Αριστερά):</strong> Χειρουργικές/τεχνικές ειδικότητες, χρήση εργαλείων, επεμβάσεις.<br>
+                 <strong>People (Δεξιά):</strong> Ψυχοκοινωνική επαφή, σχέση εμπιστοσύνης, επικοινωνία (π.χ. Ψυχιατρική, Γενική Ιατρική).</p>
+            </div>
+            <div class="legend-block">
+              <h4><i class="fa-solid fa-circle" style="color: #0d9488;"></i> Κάθετος Άξονας: Data vs Ideas</h4>
+              <p><strong>Ideas (Πάνω):</strong> Πολύπλοκη παθοφυσιολογική ανάλυση, αφηρημένη σκέψη (Εσωτερική Παθολογία, Νευρολογία).<br>
+                 <strong>Data (Κάτω):</strong> Τυποποιημένα πρωτόκολλα, εργαστηριακά δεδομένα (Βιοπαθολογία, Δημόσια Υγεία).</p>
+            </div>
+            <div class="legend-block" style="background: #fffbeb; border-color: #fde68a;">
+              <h4 style="color: #b45309;"><i class="fa-solid fa-crosshairs"></i> Ο Προσωπικός σας Δείκτης</h4>
+              <p id="userCoordsText">Υπολογίζεται δυναμικά από τις απαντήσεις σας.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FULL RANKING TABLE SECTION -->
+      <section class="full-ranking-section" id="fullRanking">
+        <div class="section-header">
+          <h2 class="section-title"><i class="fa-solid fa-list-ol"></i> Πλήρης Κατάταξη Όλων των Ειδικοτήτων (30)</h2>
+          <p class="section-subtitle">
+            Δείτε τη βαθμολογία συμβατότητας (%) για όλες τις ιατρικές ειδικότητες, ταξινομημένες κατά σειρά καταλληλότητας.
+          </p>
+        </div>
+
+        <div class="filter-bar">
+          <div class="filter-tabs" id="filterTabs">
+            <button class="tab-btn active" data-category="all">Όλες (30)</button>
+            <button class="tab-btn" data-category="surgical">Χειρουργικός Τομέας</button>
+            <button class="tab-btn" data-category="pathology">Παθολογικός Τομέας</button>
+            <button class="tab-btn" data-category="road">ROAD / Ελεγχόμενο Lifestyle</button>
+            <button class="tab-btn" data-category="primary_care">Πρωτοβάθμια / Κοινωνική</button>
+            <button class="tab-btn" data-category="lab">Εργαστηριακός Τομέας</button>
+            <button class="tab-btn" data-category="psychiatry">Ψυχιατρικός Τομέας</button>
+          </div>
+
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="specialtySearch" placeholder="Αναζήτηση ειδικότητας...">
+          </div>
+        </div>
+
+        <div class="ranking-table-card">
+          <table class="ranking-table">
+            <thead>
+              <tr>
+                <th style="width: 70px;">Κατάταξη</th>
+                <th>Ιατρική Ειδικότητα</th>
+                <th>Τομέας</th>
+                <th>Τύπος Holland</th>
+                <th>Ελεγχόμενο Lifestyle</th>
+                <th style="width: 220px;">Συμβατότητα (%)</th>
+              </tr>
+            </thead>
+            <tbody id="rankingTableBody">
+              <!-- Injected via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ===================================================================
+       SCIENTIFIC DOCUMENTATION MODAL
+       =================================================================== -->
+  <div class="modal-backdrop" id="docsModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i class="fa-solid fa-book-bookmark" style="color: var(--accent);"></i> Επιστημονική Τεκμηρίωση & Μεθοδολογία</h2>
+        <button class="modal-close-btn" id="closeDocsModalBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 20px; font-size: 0.95rem; color: #334155;">
+          Ο προσομοιωτής <strong>MedSpecialty Navigator</strong> σχεδιάστηκε με αυστηρή μεθοδολογία, συνθέτοντας τα ευρήματα από 7 διεθνείς δημοσιευμένες μελέτες σε έγκριτα ιατρικά περιοδικά (BMC Medical Education, BMC Family Practice, Croat Med J, J Formos Med Assoc κ.ά.):
+        </p>
+
+        <!-- Papers List injected via JS -->
+        <div id="papersListContainer"></div>
+
+        <div style="margin-top: 24px; padding: 18px; background: #e0f2fe; border-radius: 8px; border-left: 4px solid #0284c7;">
+          <h4 style="color: #0369a1; font-size: 0.95rem; margin-bottom: 6px;"><i class="fa-solid fa-square-root-variable"></i> Μαθηματικός Αλγόριθμος Υπολογισμού Συμβατότητας</h4>
+          <p style="font-size: 0.85rem; color: #1e293b; line-height: 1.5;">
+            Ο αλγόριθμος υπολογίζει τη σταθμισμένη Ευκλείδεια απόσταση (AHP-Weighted Normalized Euclidean Distance):
+            <br>
+            <code>d(U, P) = √ [ Σ w_i * ((u_i - p_i) / 9)^2 ]</code>
+            <br>
+            όπου <code>w_i</code> είναι τα ακριβή βάρη AHP από τη μελέτη των Chang et al. (2006). Στη συνέχεια, η απόσταση μετατρέπεται σε ποσοστό καταλληλότητας μέσω μη γραμμικής ψυχομετρικής συνάρτησης συγγένειας (affinity scoring) κατά τα πρότυπα των εργαλείων CACG (Herath et al., 2024).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       FOOTER
+       =================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <p style="margin-bottom: 8px; font-weight: 600; color: #ffffff;">MedSpecialty Navigator &copy; 2026</p>
+      <p style="margin-bottom: 12px;">Εργαλείο Επαγγελματικού Προσανατολισμού Ιατρικής βασισμένο σε 7 Διεθνείς Βιβλιογραφικές Μελέτες.</p>
+      <p style="font-size: 0.78rem; color: #64748b;">
+        Αποποίηση Ευθύνης: Το εργαλείο προορίζεται για συμβουλευτική και εκπαιδευτική υποστήριξη φοιτητών ιατρικής και δεν υποκαθιστά προσωπική κλινική εμπειρία και θεσμική συμβουλευτική σταδιοδρομίας.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Inlined Complete Application Scripts -->
+  <script>
+/**
+ * MedSpecialty Navigator - Scientific Dataset
+ * Based on 7 peer-reviewed publications:
+ * 1. Chang et al. (2006) - AHP Criteria & Weights
+ * 2. Petrides & McManus (2004) - INDSCAL RIASEC Mapping (Things-People, Data-Ideas)
+ * 3. Resneck (2006) - Controllable Lifestyle & ROAD Specialties
+ * 4. Kiolbassa et al. (2011) - GP Choice Factors & Patient Orientation
+ * 5. Peroš et al. (2025) - Personality Traits & Specialty Scoping Review
+ * 6. Sarikhani et al. (2021) - Thematic Network for Specialty Education
+ * 7. Herath et al. (2024) - CACG Tools & Personalization Parameters
+ */
+
+const CRITERIA = [
+  {
+    id: "things_vs_people",
+    category: "clinical",
+    title: "1. Χειρωνακτική / Επεμβατική έναντι Ψυχοκοινωνικής Προσέγγισης",
+    shortTitle: "Επεμβατικότητα / Τεχνική",
+    desc: "Προτίμηση για πρακτικές επεμβάσεις, χρήση εργαλείων, χειρουργείο και απτές χειρωνακτικές πράξεις έναντι καθαρά συμβουλευτικής, λεκτικής και ψυχοκοινωνικής επικοινωνίας.",
+    minLabel: "1: Αμιγώς Ψυχοκοινωνική / Λεκτική (People)",
+    maxLabel: "10: Αμιγώς Χειρουργική / Τεχνική (Things)",
+    ahpWeight: 0.11, // Derived from Chang (Operations 0.050) & Petrides (Things-People 0.060)
+    source: "Petrides & McManus (2004), Chang et al. (2006)"
+  },
+  {
+    id: "patient_relationship",
+    category: "clinical",
+    title: "2. Βάθος & Διάρκεια Σχέσης με τον Ασθενή",
+    shortTitle: "Σχέση Ιατρού-Ασθενούς",
+    desc: "Πόσο σημαντική είναι για εσάς η μακροχρόνια, προσωπική και ολιστική παρακολούθηση του ασθενούς έναντι της αποστασιοποιημένης, επεισοδιακής ή εργαστηριακής επαφής.",
+    minLabel: "1: Ελάχιστη / Επεισοδιακή / Ναρκωμένος Ασθενής",
+    maxLabel: "10: Χρόνια, Προσωπική & Ολιστική Σχέση",
+    ahpWeight: 0.10, // Derived from Kiolbassa (Factor VI: Patient Orientation) & Chang (Patient Type 0.053)
+    source: "Kiolbassa et al. (2011), Sarikhani et al. (2021)"
+  },
+  {
+    id: "diagnostic_complexity",
+    category: "clinical",
+    title: "3. Διαγνωστική Πολυπλοκότητα & Παθοφυσιολογική Αναζήτηση",
+    shortTitle: "Διαγνωστική Αναζήτηση",
+    desc: "Έλξη από πολύπλοκα διαγνωστικά παζλ, πολυοργανική παθοφυσιολογία, σύνθεση πολλαπλών εργαστηριακών/κλινικών ευρημάτων και ρόλο «Ιατρού-Ερευνητή».",
+    minLabel: "1: Άμεση / Πρακτική επίλυση συμπτωμάτων",
+    maxLabel: "10: Βαθιά διαγνωστική αναζήτηση & σύνθεση",
+    ahpWeight: 0.18, // Chang et al. (2006) Top Tier-2 Criterion: Personal intelligence/ability (0.197)
+    source: "Chang et al. (2006), Petrides & McManus (2004 - Investigative)"
+  },
+  {
+    id: "controllable_lifestyle",
+    category: "lifestyle",
+    title: "4. Ελεγχόμενος Τρόπος Ζωής & Προβλεψιμότητα (Controllable Lifestyle)",
+    shortTitle: "Ελεγχόμενο Lifestyle",
+    desc: "Ανάγκη για προβλέψιμο εβδομαδιαίο ωράριο, ελεύθερο χρόνο για οικογένεια/χόμπι και ελάχιστες απροειδοποίητες νυχτερινές κλήσεις ή εξουθενωτικές εφημερίες.",
+    minLabel: "1: Αποδοχή έντονων εφημεριών & απρόβλεπτου χρόνου",
+    maxLabel: "10: Αυστηρή ανάγκη για σταθερό & ελεγχόμενο ωράριο",
+    ahpWeight: 0.13, // Resneck (2006), Chang (Lifestyle 0.094), Kiolbassa (Work-life balance)
+    source: "Resneck (2006), Chang et al. (2006), Kiolbassa et al. (2011)"
+  },
+  {
+    id: "acute_stress_tolerance",
+    category: "lifestyle",
+    title: "5. Ανοχή σε Οξύ Στρες & Επείγουσες Καταστάσεις",
+    shortTitle: "Ανοχή Οξέος Στρες",
+    desc: "Ικανότητα ψύχραιμης και αποτελεσματικής λήψης αποφάσεων υπό άμεση πίεση χρόνου σε κρίσιμες καταστάσεις ζωής/θανάτου (π.χ. ΤΕΠ, Χειρουργείο, ΜΕΘ).",
+    minLabel: "1: Προτίμηση σε ήρεμο, σταθερό περιβάλλον ιατρείου",
+    maxLabel: "10: Άνεση σε περιβάλλον υψηλής οξείας αδρεναλίνης",
+    ahpWeight: 0.10, // Peroš et al. (2025 - Stress resistance & impulsivity), Chang (Work hazards 0.048)
+    source: "Peroš et al. (2025), Sarikhani et al. (2021)"
+  },
+  {
+    id: "work_environment",
+    category: "lifestyle",
+    title: "6. Αυτόνομο Ιδιωτικό Ιατρείο έναντι Νοσοκομειακού Περιβάλλοντος",
+    shortTitle: "Αυτονομία / Ιδιωτικό Ιατρείο",
+    desc: "Επιθυμία για ανεξάρτητη άσκηση επαγγέλματος σε δικό σας ιδιωτικό ιατρείο έναντι της ένταξης σε μεγάλο τριτοβάθμιο νοσοκομείο ή πανεπιστημιακή κλινική.",
+    minLabel: "1: Μεγάλο Νοσοκομείο / Κλινική Ομάδα",
+    maxLabel: "10: Αυτόνομο Ιδιωτικό Ιατρείο / Ανεξαρτησία",
+    ahpWeight: 0.08, // Chang (Work independently 0.067 + Own practice 0.035)
+    source: "Chang et al. (2006), Kiolbassa et al. (2011)"
+  },
+  {
+    id: "tolerance_ambiguity",
+    category: "personality",
+    title: "7. Ανοχή στην Αβεβαιότητα & την Ασάφεια (Tolerance for Ambiguity)",
+    shortTitle: "Ανοχή στην Αβεβαιότητα",
+    desc: "Άνεση στη διαχείριση κλινικών περιπτώσεων χωρίς άμεση, «ασπρόμαυρη» επιβεβαίωση έναντι της ανάγκης για απτά, μετρήσιμα και σαφή φυσικά αποτελέσματα.",
+    minLabel: "1: Ανάγκη για άμεσα, σαφή & οριστικά αποτελέσματα",
+    maxLabel: "10: Υψηλή άνεση με την αβεβαιότητα & χρονιότητα",
+    ahpWeight: 0.08, // Peroš et al. (2025 - Tolerance of Ambiguity Scale in Psychiatry vs Surgery)
+    source: "Peroš et al. (2025 - Budner & Ambiguity Aversion)"
+  },
+  {
+    id: "social_vs_technical",
+    category: "personality",
+    title: "8. Εξωστρέφεια & Ομαδική Διάδραση (Social vs Solitary Focus)",
+    shortTitle: "Κοινωνικότητα / Ομαδικότητα",
+    desc: "Ενεργητική διάθεση για συνεχή ανθρώπινη αλληλεπίδραση και πολυμελείς ομάδες έναντι της συγκεντρωμένης, μοναχικής εργασίας με τεχνολογικό εξοπλισμό/οθόνες.",
+    minLabel: "1: Μοναχική, συγκεντρωμένη εργασία (Οθόνη / Μικροσκόπιο)",
+    maxLabel: "10: Συνεχής ανθρώπινη επαφή & πολυπληθείς ομάδες",
+    ahpWeight: 0.07, // Peroš et al. (2025 - Big Five Extraversion), Petrides (Social dimension)
+    source: "Peroš et al. (2025), Petrides & McManus (2004)"
+  },
+  {
+    id: "academic_research",
+    category: "ambition",
+    title: "9. Ακαδημαϊκή Εξέλιξη & Ερευνητικό Ενδιαφέρον",
+    shortTitle: "Έρευνα & Ακαδημαϊσμός",
+    desc: "Προτεραιότητα στη συμμετοχή σε κλινικές δοκιμές, δημοσιεύσεις, διδασκαλία και ακαδημαϊκή εξέλιξη έναντι της καθαρά πρακτικής επαγγελματικής ρουτίνας.",
+    minLabel: "1: Καθαρά κλινική/πρακτική ρουτίνα χωρίς έρευνα",
+    maxLabel: "10: Ισχυρή φιλοδοξία για έρευνα, PhD & διδασκαλία",
+    ahpWeight: 0.08, // Chang (Academic opportunities 0.080), Kiolbassa (Job-related ambition R&D)
+    source: "Chang et al. (2006), Kiolbassa et al. (2011), Sarikhani (2021)"
+  },
+  {
+    id: "prestige_income",
+    category: "ambition",
+    title: "10. Οικονομικές Απολαβές & Επαγγελματικό Κύρος",
+    shortTitle: "Απολαβές & Κύρος",
+    desc: "Βαρύτητα που αποδίδετε σε υψηλές οικονομικές απολαβές, γρήγορη απόσβεση σπουδών και υψηλή κοινωνική/επαγγελματική αναγνώριση της ειδικότητας.",
+    minLabel: "1: Δευτερεύον παράγοντας, προτεραιότητα η προσφορά",
+    maxLabel: "10: Υψηλή προτεραιότητα σε εισόδημα & γόητρο",
+    ahpWeight: 0.07, // Chang (Future income 0.063 + Prestige 0.045), Sarikhani (Economic concerns 69%)
+    source: "Chang et al. (2006), Sarikhani et al. (2021)"
+  }
+];
+
+const SPECIALTIES = [
+  {
+    id: "gen_surgery",
+    name: "Γενική Χειρουργική",
+    nameEn: "General Surgery",
+    category: "surgical",
+    categoryName: "Χειρουργικός Τομέας",
+    hollandCode: "Realistic (R)",
+    lifestyleType: "Υψηλής Έντασης / Μη Ελεγχόμενο",
+    isRoad: false,
+    vector: {
+      things_vs_people: 9.5,
+      patient_relationship: 4.0,
+      diagnostic_complexity: 6.5,
+      controllable_lifestyle: 1.5,
+      acute_stress_tolerance: 9.5,
+      work_environment: 2.0,
+      tolerance_ambiguity: 2.5,
+      social_vs_technical: 7.5,
+      academic_research: 6.0,
+      prestige_income: 8.5
+    },
+    riasecCoords: { x: -2.3, y: -0.4 },
+    summary: "Δυναμική χειρουργική ειδικότητα με επίκεντρο την οξεία κοιλία, την ογκολογική χειρουργική και τις επείγουσες επεμβάσεις.",
+    pros: ["Άμεσο θεραπευτικό αποτέλεσμα και σωτήρια παρέμβαση", "Υψηλό χειρουργικό κύρος και αναγνώριση", "Πλήρης ανάπτυξη χειρωνακτικής δεξιοτεχνίας"],
+    cons: ["Εξαιρετικά απαιτητικές εφημερίες και απρόβλεπτο ωράριο", "Υψηλή σωματική και ψυχική καταπόνηση", "Περιορισμένη δυνατότητα αυτόνομου εξωτερικού ιατρείου"],
+    rationaleKey: "surgery"
+  },
+  {
+    id: "orthopaedics",
+    name: "Ορθοπαιδική & Τραυματολογία",
+    nameEn: "Orthopaedics & Traumatology",
+    category: "surgical",
+    categoryName: "Χειρουργικός Τομέας",
+    hollandCode: "Realistic (R)",
+    lifestyleType: "Υψηλής Έντασης / Μη Ελεγχόμενο",
+    isRoad: false,
+    vector: {
+      things_vs_people: 9.5,
+      patient_relationship: 4.5,
+      diagnostic_complexity: 5.5,
+      controllable_lifestyle: 3.0,
+      acute_stress_tolerance: 8.5,
+      work_environment: 5.5,
+      tolerance_ambiguity: 2.0,
+      social_vs_technical: 7.0,
+      academic_research: 5.5,
+      prestige_income: 9.0
+    },
+    riasecCoords: { x: -2.0, y: -0.6 },
+    summary: "Ειδικότητα αποκατάστασης του μυοσκελετικού συστήματος με συνδυασμό τραυματολογίας, αρθροπλαστικών και αθλητικών κακώσεων.",
+    pros: ["Σαφή, μηχανικά και μετρήσιμα αποτελέσματα", "Υψηλές οικονομικές απολαβές και ιδιωτική πελατεία", "Ευρεία χρήση σύγχρονης βιοτεχνολογίας και υλικών"],
+    cons: ["Απαιτητικό τραύμα και νυχτερινές επείγουσες επεμβάσεις", "Σωματικά κοπιαστικές επεμβάσεις", "Κίνδυνος μυοσκελετικής καταπόνησης του ίδιου του ιατρού"],
+    rationaleKey: "ortho"
+  },
+  {
+    id: "neurosurgery",
+    name: "Νευροχειρουργική",
+    nameEn: "Neurosurgery",
+    category: "surgical",
+    categoryName: "Χειρουργικός Τομέας",
+    hollandCode: "Realistic / Investigative (R/I)",
+    lifestyleType: "Εξαιρετικά Απαιτητικό",
+    isRoad: false,
+    vector: {
+      things_vs_people: 9.5,
+      patient_relationship: 3.5,
+      diagnostic_complexity: 9.0,
+      controllable_lifestyle: 1.0,
+      acute_stress_tolerance: 10.0,
+      work_environment: 1.5,
+      tolerance_ambiguity: 4.0,
+      social_vs_technical: 6.5,
+      academic_research: 8.5,
+      prestige_income: 9.5
+    },
+    riasecCoords: { x: -2.2, y: 0.2 },
+    summary: "Η πιο απαιτητική χειρουργική εξειδίκευση, αφιερωμένη στον εγκέφαλο, τη σπονδυλική στήλη και το κεντρικό νευρικό σύστημα.",
+    pros: ["Κορυφαίο επιστημονικό και κοινωνικό γόητρο", "Αντιμετώπιση των πιο περίπλοκων νευροανατομικών βλαβών", "Υψηλές δυνατότητες ακαδημαϊκής έρευνας"],
+    cons: ["Εξαιρετικά μακρά και δύσκολη εκπαίδευση", "Μηδενικός σχεδόν έλεγχος ωραρίου στα οξεία περιστατικά", "Υψηλό ποσοστό επιπλοκών και συναισθηματικό βάρος"],
+    rationaleKey: "neurosurg"
+  },
+  {
+    id: "obgyn",
+    name: "Μαιευτική & Γυναικολογία",
+    nameEn: "Obstetrics & Gynaecology",
+    category: "surgical",
+    categoryName: "Χειρουργικός Τομέας",
+    hollandCode: "Realistic / Social (R/S)",
+    lifestyleType: "Υψηλής Έντασης / Μη Ελεγχόμενο",
+    isRoad: false,
+    vector: {
+      things_vs_people: 7.5,
+      patient_relationship: 8.0,
+      diagnostic_complexity: 6.0,
+      controllable_lifestyle: 2.5,
+      acute_stress_tolerance: 8.5,
+      work_environment: 6.5,
+      tolerance_ambiguity: 3.5,
+      social_vs_technical: 8.0,
+      academic_research: 5.5,
+      prestige_income: 8.5
+    },
+    riasecCoords: { x: -0.7, y: 1.1 },
+    summary: "Μοναδικός συνδυασμός χειρουργείου, υποβοηθούμενης αναπαραγωγής και μακροχρόνιας συναισθηματικής σχέσης κατά την εγκυμοσύνη.",
+    pros: ["Βαθιά σύνδεση με τις οικογένειες και χαρά του τοκετού", "Ισορροπία μεταξύ κλινικής πράξης, χειρουργείου και ιατρείου", "Εξαιρετικές προοπτικές ιδιωτικού ιατρείου"],
+    cons: ["Απρόβλεπτοι νυχτερινοί τοκετοί και επείγουσες καισαρικές", "Υψηλό νομικό άγχος (malpractice) στην περιγεννητική φροντίδα", "Διαταραχή οικογενειακής ζωής στα χρόνια της μαιευτικής"],
+    rationaleKey: "obgyn"
+  },
+  {
+    id: "urology",
+    name: "Ουρολογία",
+    nameEn: "Urology",
+    category: "surgical",
+    categoryName: "Χειρουργικός Τομέας",
+    hollandCode: "Realistic / Enterprising (R/E)",
+    lifestyleType: "Μέτρια Ελεγχόμενο",
+    isRoad: false,
+    vector: {
+      things_vs_people: 8.5,
+      patient_relationship: 5.5,
+      diagnostic_complexity: 6.5,
+      controllable_lifestyle: 5.5,
+      acute_stress_tolerance: 6.5,
+      work_environment: 7.0,
+      tolerance_ambiguity: 3.0,
+      social_vs_technical: 6.0,
+      academic_research: 6.0,
+      prestige_income: 8.5
+    },
+    riasecCoords: { x: -1.3, y: -0.2 },
+    summary: "Χειρουργική ειδικότητα αιχμής με εκτεταμένη χρήση ρομποτικής, ενδοσκοπικών τεχνολογιών και διαχείριση ογκολογικών και λειτουργικών παθήσεων.",
+    pros: ["Πρωτοποριακές τεχνολογίες (DaVinci, lasers, ενδοουρολογία)", "Καλύτερη ισορροπία ζωής σε σύγκριση με τη γενική χειρουργική", "Εξαιρετική ιδιωτική επαγγελματική αποκατάσταση"],
+    cons: ["Χειρουργικές επιπλοκές και επείγουσα λιθίαση/αιματουρία", "Περιορισμένο εύρος ανατομικού πεδίου"],
+    rationaleKey: "urology"
+  },
+  {
+    id: "ophthalmology",
+    name: "Οφθαλμολογία",
+    nameEn: "Ophthalmology",
+    category: "road",
+    categoryName: "ROAD / Ελεγχόμενο Lifestyle",
+    hollandCode: "Realistic / Investigative (R/I)",
+    lifestyleType: "Υψηλά Ελεγχόμενο (ROAD)",
+    isRoad: true,
+    vector: {
+      things_vs_people: 8.0,
+      patient_relationship: 5.0,
+      diagnostic_complexity: 6.5,
+      controllable_lifestyle: 8.5,
+      acute_stress_tolerance: 5.0,
+      work_environment: 8.5,
+      tolerance_ambiguity: 3.0,
+      social_vs_technical: 5.0,
+      academic_research: 6.5,
+      prestige_income: 8.5
+    },
+    riasecCoords: { x: -0.5, y: -0.5 },
+    summary: "Μικροχειρουργική ειδικότητα με τεράστια τεχνολογική ανάπτυξη (lasers, φακοθρυψία), ταχεία επέμβαση και άριστο έλεγχο ωραρίου.",
+    pros: ["Κορυφαίος έλεγχος ωραρίου (Controllable Lifestyle κατά Resneck)", "Ελάχιστα νυχτερινά επείγοντα που απειλούν τη ζωή", "Άμεση αποκατάσταση της όρασης των ασθενών"],
+    cons: ["Απαιτεί εξαιρετική λεπτή κινητικότητα και μικροχειρουργική ακρίβεια", "Ακριβός εξοπλισμός για το άνοιγμα ιδιωτικού ιατρείου"],
+    rationaleKey: "ophthalmology"
+  },
+  {
+    id: "ent",
+    name: "Ωτορινολαρυγγολογία (ΩΡΛ)",
+    nameEn: "Otorhinolaryngology (ENT)",
+    category: "surgical",
+    categoryName: "Χειρουργικός Τομέας",
+    hollandCode: "Realistic / Investigative (R/I)",
+    lifestyleType: "Μέτρια Ελεγχόμενο",
+    isRoad: false,
+    vector: {
+      things_vs_people: 8.0,
+      patient_relationship: 5.5,
+      diagnostic_complexity: 6.0,
+      controllable_lifestyle: 6.5,
+      acute_stress_tolerance: 6.5,
+      work_environment: 7.5,
+      tolerance_ambiguity: 3.5,
+      social_vs_technical: 6.0,
+      academic_research: 5.5,
+      prestige_income: 8.0
+    },
+    riasecCoords: { x: -1.0, y: -0.5 },
+    summary: "Ισορροπημένη ειδικότητα που καλύπτει παιδιατρικό και ενήλικο πληθυσμό, συνδυάζοντας ιατρείο, ενδοσκοπήσεις και χειρουργείο κεφαλής-τραχήλου.",
+    pros: ["Καλός συνδυασμός ιατρείου και χειρουργικών επεμβάσεων", "Διαχειρίσιμο ωράριο εκτός συγκεκριμένων επειγόντων (αιμορραγίες/τραχειοστομίες)", "Ποικιλία ασθενών όλων των ηλικιών"],
+    cons: ["Επείγοντα αεραγωγού που απαιτούν άμεση αντιμετώπιση", "Απαιτεί εξοπλισμό ιατρείου"],
+    rationaleKey: "ent"
+  },
+  {
+    id: "anesthesiology",
+    name: "Αναισθησιολογία",
+    nameEn: "Anesthesiology",
+    category: "road",
+    categoryName: "ROAD / Ελεγχόμενο Lifestyle",
+    hollandCode: "Realistic / Investigative (R/I)",
+    lifestyleType: "Ελεγχόμενο σε Βάρδιες (Shift-based)",
+    isRoad: true,
+    vector: {
+      things_vs_people: 8.0,
+      patient_relationship: 2.0,
+      diagnostic_complexity: 7.5,
+      controllable_lifestyle: 6.5,
+      acute_stress_tolerance: 9.0,
+      work_environment: 1.5,
+      tolerance_ambiguity: 2.5,
+      social_vs_technical: 8.0,
+      academic_research: 6.0,
+      prestige_income: 7.5
+    },
+    riasecCoords: { x: -1.4, y: 0.1 },
+    summary: "Εφαρμοσμένη οξεία φυσιολογία και φαρμακολογία. Απόλυτος έλεγχος ζωτικών παραμέτρων, διαχείριση πόνου και κρίσιμων καταστάσεων στο χειρουργείο.",
+    pros: ["Εργασία σε καθορισμένες βάρδιες (όταν σχολάτε, δεν παίρνετε δουλειά στο σπίτι)", "Άμεση ανταπόκριση στις παρεμβάσεις σας εντός δευτερολέπτων", "Στενή συνεργασία με όλη τη χειρουργική ομάδα"],
+    cons: ["Χαμηλή αναγνώριση από τους ασθενείς (σπάνια θυμούνται τον αναισθησιολόγο)", "Στιγμές απόλυτου οξέος στρες κατά τη διασωλήνωση ή αστάθεια", "Αποκλειστικά νοσοκομειακή απασχόληση"],
+    rationaleKey: "anesthesia"
+  },
+  {
+    id: "icu_emergency",
+    name: "Εντατική Θεραπεία & Επείγουσα Ιατρική",
+    nameEn: "Intensive Care & Emergency Medicine",
+    category: "pathology",
+    categoryName: "Παθολογικός / Οξύς Τομέας",
+    hollandCode: "Realistic / Investigative (R/I)",
+    lifestyleType: "Υψηλής Έντασης / Βάρδιες",
+    isRoad: false,
+    vector: {
+      things_vs_people: 7.5,
+      patient_relationship: 2.5,
+      diagnostic_complexity: 8.5,
+      controllable_lifestyle: 2.5,
+      acute_stress_tolerance: 10.0,
+      work_environment: 1.0,
+      tolerance_ambiguity: 5.0,
+      social_vs_technical: 8.5,
+      academic_research: 7.0,
+      prestige_income: 7.0
+    },
+    riasecCoords: { x: -1.2, y: 0.4 },
+    summary: "Η γραμμή πυρός της ιατρικής: αναζωογόνηση, πολυοργανική ανεπάρκεια, διασωλήνωση, τραύμα και υποστήριξη ζωής σε πραγματικό χρόνο.",
+    pros: ["Σώζετε ζωές καθημερινά σε καταστάσεις ακραίας κρισιμότητας", "Καθορισμένο σύστημα βαρδιών χωρίς υποχρεώσεις εξωτερικού ιατρείου", "Πολύπλευρες γνώσεις όλων των συστημάτων"],
+    cons: ["Υψηλότατο ρίσκο επαγγελματικής εξουθένωσης (burnout)", "Συνεχής έκθεση σε απώλεια και θάνατο", "Εξουθενωτικά νυχτερινά ωράρια"],
+    rationaleKey: "icu"
+  },
+  {
+    id: "internal_medicine",
+    name: "Εσωτερική Παθολογία",
+    nameEn: "Internal Medicine",
+    category: "pathology",
+    categoryName: "Παθολογικός Τομέας",
+    hollandCode: "Investigative (I)",
+    lifestyleType: "Απαιτητικό Νοσοκομειακό",
+    isRoad: false,
+    vector: {
+      things_vs_people: 3.5,
+      patient_relationship: 7.5,
+      diagnostic_complexity: 9.5,
+      controllable_lifestyle: 3.5,
+      acute_stress_tolerance: 7.0,
+      work_environment: 3.5,
+      tolerance_ambiguity: 8.5,
+      social_vs_technical: 8.0,
+      academic_research: 8.0,
+      prestige_income: 7.0
+    },
+    riasecCoords: { x: -1.8, y: 1.7 },
+    summary: "Η μητέρα όλων των κλινικών ειδικοτήτων. Η ενσάρκωση του «Scientist-Practitioner» (Petrides & McManus) για τη διάγνωση και διαχείριση της πολυνοσηρότητας.",
+    pros: ["Απαράμιλλη διανοητική ικανοποίηση από τη διαγνωστική σύνθεση", "Ολιστική κατανόηση του ανθρώπινου σώματος", "Ιδανική βάση για ακαδημαϊκή και νοσοκομειακή ηγεσία"],
+    cons: ["Βαρύ φορτίο κλινικής και απαιτητικές εφημερίες", "Συχνή διαχείριση χρονίως πασχόντων ασθενών χωρίς οριστική ίαση", "Γραφειοκρατικός και νοσηλευτικός φόρτος"],
+    rationaleKey: "internal_med"
+  },
+  {
+    id: "cardiology",
+    name: "Καρδιολογία",
+    nameEn: "Cardiology",
+    category: "pathology",
+    categoryName: "Παθολογικός / Επεμβατικός Τομέας",
+    hollandCode: "Investigative / Realistic (I/R)",
+    lifestyleType: "Υψηλής Έντασης / Απαιτητικό",
+    isRoad: false,
+    vector: {
+      things_vs_people: 6.5,
+      patient_relationship: 7.0,
+      diagnostic_complexity: 8.5,
+      controllable_lifestyle: 3.5,
+      acute_stress_tolerance: 8.5,
+      work_environment: 6.0,
+      tolerance_ambiguity: 4.5,
+      social_vs_technical: 7.5,
+      academic_research: 8.5,
+      prestige_income: 9.5
+    },
+    riasecCoords: { x: -1.3, y: 1.2 },
+    summary: "Κορυφαία ειδικότητα με τεράστιο κλινικό κύρος, που συνδυάζει κλινική διάγνωση, υπερηχογραφία και σωτήριες επεμβάσεις (αιμοδυναμικό εργαστήριο/PCI).",
+    pros: ["Τεράστια θεραπευτική ισχύς (άμεση διάσωση από έμφραγμα)", "Εξαιρετική ιδιωτική και νοσοκομειακή ζήτηση", "Δυνατότητα επιλογής μεταξύ κλινικής και επεμβατικής κατεύθυνσης"],
+    cons: ["Επείγοντα STEMI ανά πάσα στιγμή μέρα και νύχτα", "Υψηλό στρες σε οξέα καρδιογενή σοκ", "Μεγάλος ανταγωνισμός στην ειδικότητα"],
+    rationaleKey: "cardio"
+  },
+  {
+    id: "pulmonology",
+    name: "Πνευμονολογία - Φυματιολογία",
+    nameEn: "Pulmonology",
+    category: "pathology",
+    categoryName: "Παθολογικός Τομέας",
+    hollandCode: "Investigative (I)",
+    lifestyleType: "Μέτρια Ελεγχόμενο",
+    isRoad: false,
+    vector: {
+      things_vs_people: 5.0,
+      patient_relationship: 7.0,
+      diagnostic_complexity: 7.5,
+      controllable_lifestyle: 5.0,
+      acute_stress_tolerance: 6.5,
+      work_environment: 6.5,
+      tolerance_ambiguity: 6.0,
+      social_vs_technical: 6.5,
+      academic_research: 7.0,
+      prestige_income: 7.5
+    },
+    riasecCoords: { x: -0.9, y: 0.9 },
+    summary: "Διαχείριση αναπνευστικών νοσημάτων, λοιμώξεων, ΧΑΠ, άσθματος και ογκολογίας, με βρογχοσκοπήσεις και μελέτες ύπνου.",
+    pros: ["Συνδυασμός ιατρείου, εργαστηρίου ύπνου και επεμβατικής βρογχοσκόπησης", "Σημαντική αύξηση της ζήτησης μετά την πανδημία", "Ισορροπημένη καθημερινότητα"],
+    cons: ["Βαριά χρόνια αναπνευστική ανεπάρκεια και καρκίνος πνεύμονα", "Έκθεση σε αερομεταδιδόμενες λοιμώξεις"],
+    rationaleKey: "pulm"
+  },
+  {
+    id: "gastroenterology",
+    name: "Γαστρεντερολογία",
+    nameEn: "Gastroenterology",
+    category: "pathology",
+    categoryName: "Παθολογικός / Επεμβατικός Τομέας",
+    hollandCode: "Investigative / Realistic (I/R)",
+    lifestyleType: "Μέτρια Ελεγχόμενο",
+    isRoad: false,
+    vector: {
+      things_vs_people: 7.0,
+      patient_relationship: 6.0,
+      diagnostic_complexity: 7.5,
+      controllable_lifestyle: 5.5,
+      acute_stress_tolerance: 6.5,
+      work_environment: 7.0,
+      tolerance_ambiguity: 4.5,
+      social_vs_technical: 6.5,
+      academic_research: 7.0,
+      prestige_income: 8.5
+    },
+    riasecCoords: { x: -1.1, y: 0.6 },
+    summary: "Εξαιρετική ισορροπία παθολογικής σκέψης και επικερδών ενδοσκοπικών πράξεων (γαστροσκοπήσεις, κολονοσκοπήσεις, ERCP).",
+    pros: ["Εξαιρετικές προοπτικές ιδιωτικού ιατρείου και ενδοσκοπικού κέντρου", "Συνδυασμός πρόληψης καρκίνου και άμεσης θεραπείας", "Ποικιλία τεχνικών δεξιοτήτων"],
+    cons: ["Επείγουσες αιμορραγίες πεπτικού στις εφημερίες", "Απαιτείται σημαντική επένδυση σε ενδοσκοπικό πύργο"],
+    rationaleKey: "gastro"
+  },
+  {
+    id: "neurology",
+    name: "Νευρολογία",
+    nameEn: "Neurology",
+    category: "pathology",
+    categoryName: "Παθολογικός Τομέας",
+    hollandCode: "Investigative (I)",
+    lifestyleType: "Μέτρια Ελεγχόμενο",
+    isRoad: false,
+    vector: {
+      things_vs_people: 3.0,
+      patient_relationship: 7.0,
+      diagnostic_complexity: 9.5,
+      controllable_lifestyle: 5.5,
+      acute_stress_tolerance: 6.0,
+      work_environment: 6.0,
+      tolerance_ambiguity: 8.5,
+      social_vs_technical: 6.0,
+      academic_research: 8.5,
+      prestige_income: 7.5
+    },
+    riasecCoords: { x: -1.5, y: 1.5 },
+    summary: "Η πιο διανοητική και ανατομικά εντοπιστική ειδικότητα. Διερεύνηση αγγειακών εγκεφαλικών, επιληψίας, σκλήρυνσης κατά πλάκας και νευροεκφυλιστικών παθήσεων.",
+    pros: ["Κορυφαία κλινική εξέταση και διαγνωστική ικανοποίηση", "Εκρηκτική είσοδος νέων βιολογικών θεραπειών", "Ευκαιρίες για ηλεκτροφυσιολογικό εργαστήριο (ΗΕΓ/ΗΜΓ)"],
+    cons: ["Πολλές χρόνιες μη αναστρέψιμες παθήσεις", "Οξεία εγκεφαλικά επεισόδια με ανάγκη ταχείας θρομβόλυσης"],
+    rationaleKey: "neuro"
+  },
+  {
+    id: "pediatrics",
+    name: "Παιδιατρική",
+    nameEn: "Pediatrics",
+    category: "pathology",
+    categoryName: "Παθολογικός / Κοινωνικός Τομέας",
+    hollandCode: "Social / Investigative (S/I)",
+    lifestyleType: "Μέτρια Ελεγχόμενο",
+    isRoad: false,
+    vector: {
+      things_vs_people: 2.0,
+      patient_relationship: 9.0,
+      diagnostic_complexity: 7.0,
+      controllable_lifestyle: 4.5,
+      acute_stress_tolerance: 7.5,
+      work_environment: 7.5,
+      tolerance_ambiguity: 6.0,
+      social_vs_technical: 8.5,
+      academic_research: 6.0,
+      prestige_income: 6.5
+    },
+    riasecCoords: { x: -0.6, y: 1.8 },
+    summary: "Φροντίδα από το νεογνό έως τον έφηβο. Ειδικότητα υψηλής ενσυναίσθησης (Peroš et al., 2025), επικοινωνίας με τους γονείς και πρόληψης.",
+    pros: ["Τεράστια συναισθηματική ανταμοιβή από την υγεία των παιδιών", "Άριστη δυνατότητα λειτουργίας ιδιωτικού ιατρείου", "Ισχυρός ρόλος συμβούλου της οικογένειας"],
+    cons: ["Αγχωμένοι γονείς και συνεχείς τηλεφωνικές κλήσεις εκτός ωραρίου", "Σοβαρό συναισθηματικό βάρος σε βαριά παιδιατρικά περιστατικά", "Μικρότερες μέσες αμοιβές σε σχέση με επεμβατικές ειδικότητες"],
+    rationaleKey: "peds"
+  },
+  {
+    id: "psychiatry",
+    name: "Ψυχιατρική",
+    nameEn: "Psychiatry",
+    category: "psychiatry",
+    categoryName: "Ψυχιατρικός Τομέας",
+    hollandCode: "Artistic / Social (A/S)",
+    lifestyleType: "Ελεγχόμενο Lifestyle",
+    isRoad: false,
+    vector: {
+      things_vs_people: 1.0,
+      patient_relationship: 9.5,
+      diagnostic_complexity: 8.5,
+      controllable_lifestyle: 7.5,
+      acute_stress_tolerance: 6.0,
+      work_environment: 7.5,
+      tolerance_ambiguity: 10.0,
+      social_vs_technical: 7.0,
+      academic_research: 7.5,
+      prestige_income: 6.5
+    },
+    riasecCoords: { x: 1.1, y: 1.0 },
+    summary: "Η πιο ανθρωποκεντρική ειδικότητα. Ερμηνεία της ανθρώπινης ιστορίας, συνδυασμός ψυχοφαρμακολογίας, ψυχοθεραπείας και νευροεπιστημών (Petrides: Artistic type).",
+    pros: ["Εξαιρετικός έλεγχος ωραρίου με προγραμματισμένες συνεδρίες", "Βαθιά κατανόηση του ανθρώπινου ψυχισμού και της συμπεριφοράς", "Πλήρης αυτονομία στο ιδιωτικό ιατρείο"],
+    cons: ["Υψηλότατη απαίτηση για ανοχή στην αβεβαιότητα (Peroš et al.)", "Συναισθηματική κόπωση από ψυχολογικά φορτισμένες ιστορίες", "Κοινωνικό στίγμα που συχνά συνοδεύει την ψυχική νόσο"],
+    rationaleKey: "psych"
+  },
+  {
+    id: "child_psychiatry",
+    name: "Παιδοψυχιατρική",
+    nameEn: "Child & Adolescent Psychiatry",
+    category: "psychiatry",
+    categoryName: "Ψυχιατρικός Τομέας",
+    hollandCode: "Artistic / Social (A/S)",
+    lifestyleType: "Ελεγχόμενο Lifestyle",
+    isRoad: false,
+    vector: {
+      things_vs_people: 1.0,
+      patient_relationship: 9.5,
+      diagnostic_complexity: 8.0,
+      controllable_lifestyle: 7.0,
+      acute_stress_tolerance: 6.0,
+      work_environment: 7.5,
+      tolerance_ambiguity: 9.5,
+      social_vs_technical: 8.5,
+      academic_research: 7.0,
+      prestige_income: 6.5
+    },
+    riasecCoords: { x: 0.9, y: 1.3 },
+    summary: "Αξιολόγηση και αντιμετώπιση αναπτυξιακών, συναισθηματικών και συμπεριφορικών διαταραχών σε παιδιά, εφήβους και τις οικογένειές τους.",
+    pros: ["Τεράστια κοινωνική χρησιμότητα και έλλειψη ειδικών διεθνώς", "Προγραμματισμένο ωράριο χωρίς σωματική καταπόνηση", "Πολυεπιστημονική συνεργασία με σχολεία και ψυχολόγους"],
+    cons: ["Πολύπλοκα οικογενειακά περιβάλλοντα και κοινωνικές δυσκολίες", "Απαιτεί τεράστια υπομονή και συναισθηματική ανθεκτικότητα"],
+    rationaleKey: "child_psych"
+  },
+  {
+    id: "dermatology",
+    name: "Δερματολογία & Αφροδισιολογία",
+    nameEn: "Dermatology",
+    category: "road",
+    categoryName: "ROAD / Ελεγχόμενο Lifestyle",
+    hollandCode: "Investigative / Realistic (I/R)",
+    lifestyleType: "Κορυφαία Ελεγχόμενο (ROAD)",
+    isRoad: true,
+    vector: {
+      things_vs_people: 6.0,
+      patient_relationship: 5.5,
+      diagnostic_complexity: 6.5,
+      controllable_lifestyle: 9.5,
+      acute_stress_tolerance: 2.5,
+      work_environment: 9.0,
+      tolerance_ambiguity: 4.0,
+      social_vs_technical: 4.5,
+      academic_research: 6.5,
+      prestige_income: 8.5
+    },
+    riasecCoords: { x: 0.3, y: 0.3 },
+    summary: "Η κατεξοχήν «lifestyle-friendly» ειδικότητα κατά τον Resneck (2006). Οπτική διάγνωση, δερματοχειρουργική, αισθητική και σχεδόν μηδενικά νυχτερινά επείγοντα.",
+    pros: ["Κορυφαία ικανοποίηση ζωής και ισορροπία καριέρας-οικογένειας", "Μηδενικές νυχτερινές κλήσεις ζωής/θανάτου", "Ανθηρότατο ιδιωτικό ιατρείο και κλινική/αισθητική ζήτηση"],
+    cons: ["Εξαιρετικά υψηλός ανταγωνισμός για θέση ειδικότητας (μεγάλες λίστες αναμονής)", "Κίνδυνος μετατόπισης αποκλειστικά στην αισθητική αντί της ιατρικής"],
+    rationaleKey: "derm"
+  },
+  {
+    id: "radiology",
+    name: "Ακτινοδιαγνωστική",
+    nameEn: "Diagnostic Radiology",
+    category: "road",
+    categoryName: "ROAD / Ελεγχόμενο Lifestyle",
+    hollandCode: "Investigative / Conventional (I/C)",
+    lifestyleType: "Υψηλά Ελεγχόμενο (ROAD)",
+    isRoad: true,
+    vector: {
+      things_vs_people: 7.5,
+      patient_relationship: 1.5,
+      diagnostic_complexity: 8.0,
+      controllable_lifestyle: 8.0,
+      acute_stress_tolerance: 4.5,
+      work_environment: 4.0,
+      tolerance_ambiguity: 4.0,
+      social_vs_technical: 3.5,
+      academic_research: 7.5,
+      prestige_income: 8.5
+    },
+    riasecCoords: { x: 0.5, y: -0.6 },
+    summary: "Η ψηφιακή ματιά στο εσωτερικό του σώματος. CT, MRI, υπερηχογραφία, PET και τηλεϊατρική. Ειδικότητα του ορθογώνιου άξονα Data-Ideas (Petrides & McManus).",
+    pros: ["Υψηλή τεχνολογία, ψηφιακό περιβάλλον και δυνατότητα τηλεργασίας", "Συμβουλευτικός ρόλος-κλειδί για όλες τις άλλες κλινικές ειδικότητες", "Προβλέψιμο ωράριο βαρδιών χωρίς άμεση νοσηλεία ασθενών"],
+    cons: ["Ελάχιστη άμεση κλινική επαφή με ασθενείς", "Συνεχής έκθεση σε σκοτεινό θάλαμο/σταθμό εργασίας και οθόνες", "Πίεση για ταχεία γνωμάτευση μεγάλου όγκου εξετάσεων"],
+    rationaleKey: "radiology"
+  },
+  {
+    id: "radiation_oncology",
+    name: "Ακτινοθεραπευτική Ογκολογία",
+    nameEn: "Radiation Oncology",
+    category: "road",
+    categoryName: "ROAD / Ελεγχόμενο Lifestyle",
+    hollandCode: "Investigative / Realistic (I/R)",
+    lifestyleType: "Υψηλά Ελεγχόμενο",
+    isRoad: true,
+    vector: {
+      things_vs_people: 7.0,
+      patient_relationship: 6.0,
+      diagnostic_complexity: 7.5,
+      controllable_lifestyle: 8.0,
+      acute_stress_tolerance: 5.0,
+      work_environment: 3.0,
+      tolerance_ambiguity: 4.5,
+      social_vs_technical: 7.0,
+      academic_research: 8.0,
+      prestige_income: 8.0
+    },
+    riasecCoords: { x: 0.4, y: -0.3 },
+    summary: "Συνδυασμός ιατρικής ογκολογίας, ακτινοφυσικής και γραμμικών επιταχυντών για τη στοχευμένη θεραπεία κακοηθειών.",
+    pros: ["Σαφώς καθορισμένο ημερήσιο πρόγραμμα εξωτερικών ασθενών", "Προηγμένη τεχνολογία σχεδιασμού 3D/IMRT", "Σημαντική ακαδημαϊκή έρευνα"],
+    cons: ["Περιορισμένη σε εξειδικευμένα ογκολογικά κέντρα (λίγες θέσεις εργασίας)", "Συναισθηματικό βάρος ογκολογικών ασθενών"],
+    rationaleKey: "rad_onc"
+  },
+  {
+    id: "pathology_anatomy",
+    name: "Παθολογική Ανατομική",
+    nameEn: "Anatomic Pathology",
+    category: "lab",
+    categoryName: "Εργαστηριακός Τομέας",
+    hollandCode: "Conventional / Investigative (C/I)",
+    lifestyleType: "Υψηλά Ελεγχόμενο",
+    isRoad: true,
+    vector: {
+      things_vs_people: 6.5,
+      patient_relationship: 1.0,
+      diagnostic_complexity: 8.5,
+      controllable_lifestyle: 8.5,
+      acute_stress_tolerance: 3.5,
+      work_environment: 3.0,
+      tolerance_ambiguity: 4.0,
+      social_vs_technical: 3.0,
+      academic_research: 8.5,
+      prestige_income: 7.0
+    },
+    riasecCoords: { x: -0.2, y: -0.7 },
+    summary: "Ο ιατρός των ιατρών. Η οριστική ιστολογική διάγνωση βιοψιών και όγκων κάτω από το μικροσκόπιο και μοριακές αναλύσεις (Petrides: Conventional archetype).",
+    pros: ["Η απόλυτη διαγνωστική βεβαιότητα: η δική σας υπογραφή καθορίζει τη θεραπεία", "Εξαιρετικό ωράριο εργαστηρίου χωρίς νυχτερινές εφημερίες ασθενών", "Ήρεμο, συγκεντρωμένο εργαστηριακό περιβάλλον"],
+    cons: ["Μηδενική επαφή με ζωντανούς ασθενείς", "Τεράστια νομική και διαγνωστική ευθύνη σε κάθε πλακίδιο", "Μοναχική εργασία στο μικροσκόπιο"],
+    rationaleKey: "pathology"
+  },
+  {
+    id: "clinical_biopathology",
+    name: "Ιατρική Βιοπαθολογία (Μικροβιολογία)",
+    nameEn: "Clinical Biopathology / Lab Medicine",
+    category: "lab",
+    categoryName: "Εργαστηριακός Τομέας",
+    hollandCode: "Conventional (C)",
+    lifestyleType: "Ελεγχόμενο Lifestyle",
+    isRoad: true,
+    vector: {
+      things_vs_people: 7.0,
+      patient_relationship: 2.0,
+      diagnostic_complexity: 6.5,
+      controllable_lifestyle: 8.0,
+      acute_stress_tolerance: 3.5,
+      work_environment: 6.5,
+      tolerance_ambiguity: 2.0,
+      social_vs_technical: 4.0,
+      academic_research: 7.0,
+      prestige_income: 7.0
+    },
+    riasecCoords: { x: 0.1, y: -1.2 },
+    summary: "Διαχείριση κλινικού εργαστηρίου: αιματολογία, βιοχημεία, μικροβιολογία, ανοσολογία και τράπεζα αίματος.",
+    pros: ["Εξαιρετικές δυνατότητες ιδιωτικού διαγνωστικού εργαστηρίου", "Σταθερό ωράριο χωρίς σωματική εξάντληση", "Σαφή και μετρήσιμα αποτελέσματα"],
+    cons: ["Μεγάλος ανταγωνισμός από αλυσίδες διαγνωστικών κέντρων", "Ρουτίνα τυποποιημένων εργαστηριακών πρωτοκόλλων"],
+    rationaleKey: "biopath"
+  },
+  {
+    id: "general_practice",
+    name: "Γενική Ιατρική / Οικογενειακή Ιατρική",
+    nameEn: "General Practice / Family Medicine",
+    category: "primary_care",
+    categoryName: "Πρωτοβάθμια Φροντίδα",
+    hollandCode: "Social / Artistic (S/A)",
+    lifestyleType: "Ισορροπημένο / Ελεγχόμενο",
+    isRoad: false,
+    vector: {
+      things_vs_people: 2.0,
+      patient_relationship: 10.0,
+      diagnostic_complexity: 6.5,
+      controllable_lifestyle: 7.5,
+      acute_stress_tolerance: 4.0,
+      work_environment: 8.5,
+      tolerance_ambiguity: 8.0,
+      social_vs_technical: 7.0,
+      academic_research: 4.0,
+      prestige_income: 5.5
+    },
+    riasecCoords: { x: 1.0, y: 1.6 },
+    summary: "Η βάση της υγείας. Μακροχρόνια προσωπική σχέση με τον ασθενή, πρόληψη, διαχείριση χρόνιων νοσημάτων (Kiolbassa et al.: κορυφαία προσήλωση στον ασθενή).",
+    pros: ["Η πιο ισχυρή και διαχρονική σχέση εμπιστοσύνης ιατρού-ασθενούς", "Ισορροπημένο ωράριο και συμβατότητα με οικογενειακή ζωή", "Αυτονομία ιατρείου ή κέντρου υγείας"],
+    cons: ["Χαμηλότερο εισόδημα και κοινωνικό κύρος σε ορισμένα συστήματα υγείας (Kiolbassa 2011)", "Διαχείριση αδιαφοροποίητων και συχνά ασαφών συμπτωμάτων"],
+    rationaleKey: "gp"
+  },
+  {
+    id: "public_health",
+    name: "Δημόσια Υγεία & Κοινωνική Ιατρική",
+    nameEn: "Public Health & Social Medicine",
+    category: "primary_care",
+    categoryName: "Πρωτοβάθμια & Κοινωνική",
+    hollandCode: "Social / Enterprising (S/E)",
+    lifestyleType: "Πλήρως Ελεγχόμενο / Διοικητικό",
+    isRoad: false,
+    vector: {
+      things_vs_people: 1.5,
+      patient_relationship: 1.0,
+      diagnostic_complexity: 7.0,
+      controllable_lifestyle: 9.0,
+      acute_stress_tolerance: 2.5,
+      work_environment: 2.0,
+      tolerance_ambiguity: 7.0,
+      social_vs_technical: 8.5,
+      academic_research: 8.5,
+      prestige_income: 6.0
+    },
+    riasecCoords: { x: 1.5, y: -0.2 },
+    summary: "Φροντίδα για ολόκληρο τον πληθυσμό. Επιδημιολογία, πρόληψη, πολιτικές υγείας, διαχείριση επιδημιών (Petrides: Social with Data orientation).",
+    pros: ["Αντίκτυπος σε επίπεδο ολόκληρης της κοινωνίας", "Σταθερό ωράριο γραφείου χωρίς νυχτερινές κλινικές εφημερίες", "Συνεργασία με διεθνείς οργανισμούς (ΠΟΥ, ECDC)"],
+    cons: ["Μηδενική κλινική πράξη σε ατομικό ασθενή", "Εξάρτηση από πολιτικές και διοικητικές αποφάσεις"],
+    rationaleKey: "public_health"
+  },
+  {
+    id: "physiatry",
+    name: "Φυσική Ιατρική & Αποκατάσταση",
+    nameEn: "Physical Medicine & Rehabilitation",
+    category: "pathology",
+    categoryName: "Παθολογικός / Αποκατάσταση",
+    hollandCode: "Social / Realistic (S/R)",
+    lifestyleType: "Υψηλά Ελεγχόμενο",
+    isRoad: false,
+    vector: {
+      things_vs_people: 5.0,
+      patient_relationship: 8.5,
+      diagnostic_complexity: 6.0,
+      controllable_lifestyle: 8.0,
+      acute_stress_tolerance: 3.5,
+      work_environment: 6.5,
+      tolerance_ambiguity: 6.5,
+      social_vs_technical: 9.0,
+      academic_research: 5.5,
+      prestige_income: 7.0
+    },
+    riasecCoords: { x: 0.6, y: 0.6 },
+    summary: "Μεγιστοποίηση της λειτουργικότητας και ποιότητας ζωής σε άτομα με αναπηρίες, εγκεφαλικά επεισόδια και μυοσκελετικές κακώσεις.",
+    pros: ["Συνεργασία με πολυεπιστημονική ομάδα (φυσικοθεραπευτές, εργοθεραπευτές)", "Πολύ ελεγχόμενο ωράριο με ελάχιστα οξέα περιστατικά", "Ορατή πρόοδος στην ανεξαρτησία των ασθενών"],
+    cons: ["Αργή και μακροχρόνια διαδικασία αποκατάστασης", "Συχνά περιορισμένες επιλογές πλήρους ίασης"],
+    rationaleKey: "physiatry"
+  },
+  {
+    id: "rheumatology",
+    name: "Ρευματολογία",
+    nameEn: "Rheumatology",
+    category: "pathology",
+    categoryName: "Παθολογικός Τομέας",
+    hollandCode: "Investigative (I)",
+    lifestyleType: "Υψηλά Ελεγχόμενο",
+    isRoad: false,
+    vector: {
+      things_vs_people: 3.5,
+      patient_relationship: 8.0,
+      diagnostic_complexity: 9.0,
+      controllable_lifestyle: 7.5,
+      acute_stress_tolerance: 4.5,
+      work_environment: 7.0,
+      tolerance_ambiguity: 8.0,
+      social_vs_technical: 6.0,
+      academic_research: 8.0,
+      prestige_income: 7.5
+    },
+    riasecCoords: { x: -1.0, y: 1.4 },
+    summary: "Διαγνωστικά παζλ αυτοάνοσων και συστηματικών νοσημάτων (λύκος, αρθρίτιδες, αγγειίτιδες) με σύγχρονες στοχευμένες βιολογικές θεραπείες.",
+    pros: ["Εξαιρετικός έλεγχος ωραρίου (κυρίως εξωτερικό ιατρείο)", "Συναρπαστική ανοσολογική παθοφυσιολογία", "Σταθερή, βαθιά σχέση με χρόνιους ασθενείς"],
+    cons: ["Συχνή διαχείριση χρόνιου πόνου και μη ιάσιμων νόσων", "Απαιτεί υψηλή υπομονή στη διαγνωστική παρακολούθηση"],
+    rationaleKey: "rheum"
+  },
+  {
+    id: "nephrology",
+    name: "Νεφρολογία",
+    nameEn: "Nephrology",
+    category: "pathology",
+    categoryName: "Παθολογικός Τομέας",
+    hollandCode: "Investigative (I)",
+    lifestyleType: "Μέτρια Ελεγχόμενο",
+    isRoad: false,
+    vector: {
+      things_vs_people: 5.0,
+      patient_relationship: 8.0,
+      diagnostic_complexity: 9.0,
+      controllable_lifestyle: 5.0,
+      acute_stress_tolerance: 7.0,
+      work_environment: 4.0,
+      tolerance_ambiguity: 7.0,
+      social_vs_technical: 7.5,
+      academic_research: 8.0,
+      prestige_income: 7.5
+    },
+    riasecCoords: { x: -1.2, y: 1.3 },
+    summary: "Βαθιά παθοφυσιολογία οξεοβασικής ισορροπίας, ηλεκτρολυτών και διαχείριση αιμοκάθαρσης και μεταμοσχεύσεων νεφρού.",
+    pros: ["Διανοητικά απαιτητικό και επιστημονικά συναρπαστικό αντικείμενο", "Στενή σχέση με ασθενείς μονάδας τεχνητού νεφρού", "Υψηλή ζήτηση σε κλινικές και κέντρα αιμοκάθαρσης"],
+    cons: ["Επείγοντα υπερκαλιαιμίας, πνευμονικού οιδήματος και αιμοκάθαρσης στις εφημερίες", "Σοβαρά επιβαρυμένοι ασθενείς με υψηλή θνησιμότητα"],
+    rationaleKey: "nephro"
+  },
+  {
+    id: "endocrinology",
+    name: "Ενδοκρινολογία - Διαβήτης - Μεταβολισμός",
+    nameEn: "Endocrinology & Diabetes",
+    category: "pathology",
+    categoryName: "Παθολογικός Τομέας",
+    hollandCode: "Investigative (I)",
+    lifestyleType: "Υψηλά Ελεγχόμενο",
+    isRoad: false,
+    vector: {
+      things_vs_people: 2.5,
+      patient_relationship: 7.5,
+      diagnostic_complexity: 8.5,
+      controllable_lifestyle: 8.0,
+      acute_stress_tolerance: 3.5,
+      work_environment: 8.0,
+      tolerance_ambiguity: 6.0,
+      social_vs_technical: 5.5,
+      academic_research: 7.5,
+      prestige_income: 7.5
+    },
+    riasecCoords: { x: -0.8, y: 1.4 },
+    summary: "Αρμονία ορμονικών αξόνων, θυρεοειδής, σακχαρώδης διαβήτης και οστεοπόρωση. Προνομιακή ειδικότητα ιδιωτικού ιατρείου και εξαιρετικού ωραρίου.",
+    pros: ["Εξαιρετικός έλεγχος ωραρίου χωρίς επείγοντα νυκτερινά περιστατικά", "Κομψή βιοχημική λογική και ξεκάθαρη αντικατάσταση ορμονών", "Ιδανικό για ευημερούν ιδιωτικό ιατρείο"],
+    cons: ["Μεγάλη ρουτίνα ρύθμισης διαβήτη και δυσλιπιδαιμιών", "Ελάχιστες επεμβατικές πράξεις (κυρίως παρακεντήσεις θυρεοειδούς)"],
+    rationaleKey: "endo"
+  },
+  {
+    id: "hematology",
+    name: "Αιματολογία",
+    nameEn: "Hematology",
+    category: "pathology",
+    categoryName: "Παθολογικός / Εργαστηριακός",
+    hollandCode: "Investigative / Conventional (I/C)",
+    lifestyleType: "Απαιτητικό Νοσοκομειακό",
+    isRoad: false,
+    vector: {
+      things_vs_people: 5.5,
+      patient_relationship: 7.5,
+      diagnostic_complexity: 9.0,
+      controllable_lifestyle: 4.0,
+      acute_stress_tolerance: 7.5,
+      work_environment: 3.0,
+      tolerance_ambiguity: 6.0,
+      social_vs_technical: 7.0,
+      academic_research: 9.0,
+      prestige_income: 8.0
+    },
+    riasecCoords: { x: -0.6, y: 0.2 },
+    summary: "Συνδυασμός κλινικής ογκοαιματολογίας (λευχαιμίες, λεμφώματα, μεταμοσχεύσεις μυελού) και μικροσκοπικού/μοριακού εργαστηρίου.",
+    pros: ["Απόλυτη σύνδεση κλινικού θαλάμου και μικροσκοπικής διάγνωσης", "Πρωτοπορία στην κυτταρική θεραπεία (CAR-T) και ανοσοθεραπεία", "Υψηλό ακαδημαϊκό προφίλ"],
+    cons: ["Ουδετεροπενικές λοιμώξεις και οξείες αιματολογικές κρίσεις", "Συχνή επαφή με επιθετικές κακοήθειες"],
+    rationaleKey: "hema"
+  },
+  {
+    id: "medical_oncology",
+    name: "Παθολογική Ογκολογία",
+    nameEn: "Medical Oncology",
+    category: "pathology",
+    categoryName: "Παθολογικός Τομέας",
+    hollandCode: "Investigative / Social (I/S)",
+    lifestyleType: "Απαιτητικό",
+    isRoad: false,
+    vector: {
+      things_vs_people: 3.0,
+      patient_relationship: 8.5,
+      diagnostic_complexity: 9.0,
+      controllable_lifestyle: 4.5,
+      acute_stress_tolerance: 7.5,
+      work_environment: 4.0,
+      tolerance_ambiguity: 7.5,
+      social_vs_technical: 8.5,
+      academic_research: 9.5,
+      prestige_income: 8.5
+    },
+    riasecCoords: { x: 0.1, y: 1.1 },
+    summary: "Επαναστατικές στοχευμένες θεραπείες, ανοσοθεραπεία και βαθιά υπαρξιακή σχέση με τον ασθενή στη μάχη κατά του καρκίνου.",
+    pros: ["Βρίσκεστε στην αιχμή των βιοϊατρικών ανακαλύψεων παγκοσμίως", "Ισχυρότατος συναισθηματικός δεσμός με ασθενείς και συγγενείς", "Τεράστιες δυνατότητες χρηματοδότησης κλινικών μελετών"],
+    cons: ["Βαρύ συναισθηματικό φορτίο και διαχείριση πένθους", "Επείγουσες ογκολογικές επιπλοκές και τοξικότητες"],
+    rationaleKey: "onco"
+  }
+];
+
+const PRESETS = {
+  surgeon: {
+    name: "Χειρουργικός Προσανατολισμός",
+    icon: "fa-scalpel",
+    desc: "Υψηλή επεμβατικότητα, οξύ στρες, αποδοχή απαιτητικού ωραρίου.",
+    values: {
+      things_vs_people: 9,
+      patient_relationship: 4,
+      diagnostic_complexity: 6,
+      controllable_lifestyle: 2,
+      acute_stress_tolerance: 9,
+      work_environment: 2,
+      tolerance_ambiguity: 2,
+      social_vs_technical: 7,
+      academic_research: 6,
+      prestige_income: 9
+    }
+  },
+  road: {
+    name: "Lifestyle / E-ROAD",
+    icon: "fa-sun",
+    desc: "Μέγιστος έλεγχος ωραρίου, ισορροπία ζωής, ελάχιστα οξέα νυχτερινά επείγοντα (Resneck 2006).",
+    values: {
+      things_vs_people: 7,
+      patient_relationship: 4,
+      diagnostic_complexity: 7,
+      controllable_lifestyle: 10,
+      acute_stress_tolerance: 3,
+      work_environment: 8,
+      tolerance_ambiguity: 3,
+      social_vs_technical: 4,
+      academic_research: 6,
+      prestige_income: 8
+    }
+  },
+  internist: {
+    name: "Παθολογική Σκέψη & Έρευνα",
+    icon: "fa-brain",
+    desc: "Βαθιά διαγνωστική αναζήτηση, ακαδημαϊσμός, ανοχή σε πολύπλοκα περιστατικά.",
+    values: {
+      things_vs_people: 3,
+      patient_relationship: 8,
+      diagnostic_complexity: 10,
+      controllable_lifestyle: 4,
+      acute_stress_tolerance: 7,
+      work_environment: 3,
+      tolerance_ambiguity: 9,
+      social_vs_technical: 8,
+      academic_research: 9,
+      prestige_income: 7
+    }
+  },
+  primary: {
+    name: "Πρωτοβάθμια / Οικογενειακή",
+    icon: "fa-heart-pulse",
+    desc: "Μακροχρόνια σχέση με ασθενείς, ολιστική φροντίδα, οικογενειακή ισορροπία (Kiolbassa 2011).",
+    values: {
+      things_vs_people: 2,
+      patient_relationship: 10,
+      diagnostic_complexity: 6,
+      controllable_lifestyle: 8,
+      acute_stress_tolerance: 4,
+      work_environment: 9,
+      tolerance_ambiguity: 8,
+      social_vs_technical: 7,
+      academic_research: 4,
+      prestige_income: 5
+    }
+  },
+  laboratory: {
+    name: "Διαγνωστικό Εργαστήριο",
+    icon: "fa-microscope",
+    desc: "Συγκέντρωση σε δεδομένα, μικροσκόπιο/εικόνα, ακρίβεια πρωτοκόλλων, χωρίς πίεση κλίνης.",
+    values: {
+      things_vs_people: 7,
+      patient_relationship: 1,
+      diagnostic_complexity: 8,
+      controllable_lifestyle: 9,
+      acute_stress_tolerance: 3,
+      work_environment: 4,
+      tolerance_ambiguity: 3,
+      social_vs_technical: 3,
+      academic_research: 8,
+      prestige_income: 7
+    }
+  }
+};
+
+const PAPERS_METADATA = [
+  {
+    id: 1,
+    title: "Factors Influencing Medical Students’ Choice of Specialty",
+    authors: "Pei-Yeh Chang, Chih-Young Hung, Kuei-Ing Wang, Yuan-Huei Huang, King-Jen Chang",
+    year: 2006,
+    journal: "Journal of the Formosan Medical Association, 105(6):489-496",
+    doi: "10.1016/S0929-6646(09)60189-5",
+    coreContribution: "Εφαρμογή του Analytic Hierarchy Process (AHP). Καθορισμός των ακριβών ποσοστών βαρύτητας των παραμέτρων (Προσωπική ικανότητα/πρόκληση: 19.7%, Ευκαιρίες καριέρας: 10.7%, Lifestyle μετά την εκπαίδευση: 9.4%, Ακαδημαϊκές ευκαιρίες: 8.0%). Αποτελεί τη ραχοκοκαλιά των βαρών του προσομοιωτή μας."
+  },
+  {
+    id: 2,
+    title: "Mapping medical careers: Questionnaire assessment of career preferences in medical school applicants and final-year students",
+    authors: "K.V. Petrides, I.C. McManus",
+    year: 2004,
+    journal: "BMC Medical Education, 4:18",
+    doi: "10.1186/1472-6920-4-18",
+    coreContribution: "Χρήση Individual Differences Scaling (INDSCAL) σε 3 μεγάλες κοόρτες. Απόδειξη ότι οι ιατρικές ειδικότητες χαρτογραφούνται πλήρως στο εξάγωνο RIASEC του Holland και στους δύο ορθογώνιους άξονες του Prediger: 'Things vs People' (Τεχνική vs Άνθρωποι) και 'Data vs Ideas' (Δεδομένα vs Ιδέες)."
+  },
+  {
+    id: 3,
+    title: "The influence of controllable lifestyle on medical student specialty choice: a dermatologist's perspective",
+    authors: "Jack S. Resneck, Jr., MD",
+    year: 2006,
+    journal: "Virtual Mentor (AMA Journal of Ethics), 8(8):529-532",
+    doi: "10.1001/virtualmentor.2006.8.8.msoc1-0608",
+    coreContribution: "Ορισμός του Controllable Lifestyle και ανάλυση της μετατόπισης των αποφοίτων προς τις ειδικότητες E-ROAD (Dermatology, Radiology, Ophthalmology, Anesthesiology) έναντι των παραδοσιακών μη ελεγχόμενων ειδικοτήτων (General Surgery, OB/GYN)."
+  },
+  {
+    id: 4,
+    title: "Becoming a general practitioner - Which factors have most impact on career choice of medical students?",
+    authors: "Kathrin Kiolbassa, Antje Miksch, Katja Hermann, Andreas Loh, Joachim Szecsenyi, Stefanie Joos, Katja Goetz",
+    year: 2011,
+    journal: "BMC Family Practice, 12:25",
+    doi: "10.1186/1471-2296-12-25",
+    coreContribution: "Παραγοντική ανάλυση 27 ερωτημάτων σε 1.299 φοιτητές ιατρικής (7 παράγοντες: Work-life balance, Image, Future perspective, Job ambition, Job variety, Patient orientation, Personal ambition). Ανέδειξε ότι η προσήλωση στον ασθενή (Patient orientation) είναι ο νούμερο 1 διαχωριστικός παράγοντας για τη Γενική/Οικογενειακή Ιατρική έναντι Χειρουργικής/Αναισθησιολογίας."
+  },
+  {
+    id: 5,
+    title: "Personality traits and medical specialty preference among medical students and graduates: a scoping review",
+    authors: "Antonia Peroš, Nensi Bralić, Ivan Buljan",
+    year: 2025,
+    journal: "Croatian Medical Journal, 66:321-333",
+    doi: "10.3325/cmj.2025.66.321",
+    coreContribution: "Συστηματική ανασκόπηση 61 μελετών (1955-2024) για ψυχολογικά χαρακτηριστικά (Big Five, MBTI, Ambiguity tolerance, Impulsivity). Τεκμηρίωσε στατιστικές συσχετίσεις: π.χ. Χειρουργική με υψηλή παρορμητικότητα/αποφασιστικότητα & χαμηλό νευρωτισμό, Ψυχιατρική με υψηλή ανοχή στην αβεβαιότητα (ambiguity tolerance) & εσωστρέφεια, Παιδιατρική με υψηλή προσήνεια (agreeableness) & ενσυναίσθηση."
+  },
+  {
+    id: 6,
+    title: "A thematic network for factors affecting the choice of specialty education by medical students: a scoping study in low- and middle-income countries",
+    authors: "Yaser Sarikhani, Sulmaz Ghahramani, Mohsen Bayati, Farhad Lotfi, Peivand Bastani",
+    year: 2021,
+    journal: "BMC Medical Education, 21:99",
+    doi: "10.1186/s12909-021-02539-5",
+    coreContribution: "Θεματικό δίκτυο 17 υπο-θεμάτων και 5 κύριων αξόνων (Life fulfillment, Influential career aspects, Personal determinants, Educational factors, Interpersonal effects). Επιβεβαίωσε την καθολική υπεροχή του Controllable Lifestyle (69%) και των Οικονομικών Προοπτικών (69%) στη διεθνή βιβλιογραφία."
+  },
+  {
+    id: 7,
+    title: "Computer-Assisted Career Guidance Tools for Students’ Career Path Planning: A Review of Enabling Technologies and Applications",
+    authors: "G.A.C.A. Herath, B.T.G.S. Kumara, R.M.K.T. Rathnayaka, U.A.P. Ishanka",
+    year: 2024,
+    journal: "Journal of Information Technology Education: Research, 23:Article 6",
+    doi: "10.28945/5265",
+    coreContribution: "Συστηματική ανασκόπηση τεχνολογιών Computer-Assisted Career Guidance (CACG). Καθοδηγεί την υλοποίηση της μηχανής του προσομοιωτή μας μέσω πολυκριτηριακής λήψης αποφάσεων (MCDM/AHP), ανάλυσης ομοιότητας προφίλ (vector distance) και διαφανούς επεξηγησιμότητας αποτελεσμάτων."
+  }
+];
+
+
+/**
+ * MedSpecialty Navigator - Matching Engine
+ * Implements Multi-Criteria AHP-weighted Euclidean Distance Matching
+ * and Dynamic Explanatory Synthesis based on the 7 uploaded papers.
+ */
+
+const MatchEngine = {
+  /**
+   * Calculates compatibility for all 30 specialties given the user's vector
+   * @param {Object} userVector - Key-value pair of criterion_id: rating (1-10)
+   * @returns {Array} Sorted array of specialties with match scores and breakdowns
+   */
+  calculateMatches: function(userVector) {
+    const results = SPECIALTIES.map(specialty => {
+      let sumWeightedSquaredDiff = 0;
+      let totalWeight = 0;
+      const criterionDiffs = [];
+
+      CRITERIA.forEach(crit => {
+        const userVal = Number(userVector[crit.id]) || 5;
+        const specVal = Number(specialty.vector[crit.id]) || 5;
+        const normalizedDiff = Math.abs(userVal - specVal) / 9.0; // range [0, 1]
+        const weight = crit.ahpWeight;
+
+        sumWeightedSquaredDiff += weight * Math.pow(normalizedDiff, 2);
+        totalWeight += weight;
+
+        criterionDiffs.push({
+          criterionId: crit.id,
+          title: crit.shortTitle,
+          category: crit.category,
+          userVal: userVal,
+          specVal: specVal,
+          diff: Math.abs(userVal - specVal),
+          weightedImpact: weight * (1 - normalizedDiff),
+          weight: weight
+        });
+      });
+
+      // Weighted Root Mean Square Distance (range [0, 1])
+      const weightedDistance = Math.sqrt(sumWeightedSquaredDiff / totalWeight);
+
+      // Nonlinear psychological compatibility mapping
+      // Maps weighted distance into intuitive percentage (85-98% for top fits, 30-50% for distant)
+      const rawScore = 100 * Math.exp(-1.8 * Math.pow(weightedDistance, 1.4));
+      const matchScore = Math.min(99.4, Math.max(18.0, Math.round(rawScore * 10) / 10));
+
+      // Sort criteria to find best alignments and notable divergence
+      criterionDiffs.sort((a, b) => a.diff - b.diff);
+      const topAlignments = criterionDiffs.slice(0, 3);
+      const divergences = criterionDiffs.filter(c => c.diff >= 3.0);
+
+      const explanation = this.generateScientificExplanation(specialty, userVector, topAlignments, divergences);
+
+      return {
+        ...specialty,
+        matchScore: matchScore,
+        weightedDistance: weightedDistance,
+        criterionDiffs: criterionDiffs,
+        topAlignments: topAlignments,
+        divergences: divergences,
+        explanation: explanation
+      };
+    });
+
+    // Sort descending by match score
+    results.sort((a, b) => b.matchScore - a.matchScore);
+
+    // Add rank
+    return results.map((item, index) => ({
+      ...item,
+      rank: index + 1
+    }));
+  },
+
+  /**
+   * Generates a detailed, scientifically-backed justification for a specialty
+   */
+  generateScientificExplanation: function(specialty, userVector, alignments, divergences) {
+    const points = [];
+    const citations = [];
+
+    // 1. Clinical & Practice Orientation (Petrides & McManus 2004, Chang 2006)
+    const thingsVal = userVector["things_vs_people"];
+    const patientVal = userVector["patient_relationship"];
+    const diagVal = userVector["diagnostic_complexity"];
+
+    if (specialty.vector.things_vs_people >= 7.5 && thingsVal >= 7) {
+      points.push(`Η έντονη προτίμησή σας για επεμβατικές / χειρουργικές πράξεις (${thingsVal}/10) ευθυγραμμίζεται απόλυτα με τον πρακτικό χαρακτήρα της ${specialty.name}. Σύμφωνα με τους <strong>Petrides & McManus (2004)</strong>, η ειδικότητα κατατάσσεται στον τύπο <em>Realistic (R)</em>, όπου κυριαρχεί η άμεση τεχνική δεξιοτεχνία και η χειρωνακτική παρέμβαση.`);
+      citations.push("Petrides & McManus (2004)");
+    } else if (specialty.vector.things_vs_people <= 3.5 && thingsVal <= 4) {
+      points.push(`Η προτίμησή σας για συμβουλευτική και ψυχοκοινωνική επαφή (${thingsVal}/10) ταιριάζει με το μη επεμβατικό προφίλ της ${specialty.name}. Όπως αναλύουν οι <strong>Petrides & McManus (2004)</strong>, η κατεύθυνση αυτή εστιάζει στον άξονα <em>People</em> αντί του <em>Things</em>.`);
+      citations.push("Petrides & McManus (2004)");
+    }
+
+    if (specialty.vector.patient_relationship >= 8.0 && patientVal >= 7) {
+      points.push(`Η επιθυμία σας για μακροχρόνια και ολιστική σχέση ιατρού-ασθενούς (${patientVal}/10) αποτελεί ακρογωνιαίο λίθο εδώ. Η μελέτη των <strong>Kiolbassa et al. (2011)</strong> ανέδειξε ότι η «Προσήλωση στον Ασθενή» (Patient Orientation) είναι ο ισχυρότερος στατιστικά παράγοντας διαφοροποίησης (p < 0.01) για ειδικότητες πρωτοβάθμιας και συνεχούς φροντίδας.`);
+      citations.push("Kiolbassa et al. (2011)");
+    } else if (specialty.vector.patient_relationship <= 3.0 && patientVal <= 4) {
+      points.push(`Η προτίμησή σας για αντικειμενική, αποστασιοποιημένη ή επεισοδιακή επαφή με τον ασθενή (${patientVal}/10) ταιριάζει με τη φύση της ${specialty.name}, όπου η εστίαση στρέφεται στην άμεση εργαστηριακή, απεικονιστική ή οξεία διαχείριση (Kiolbassa et al., 2011).`);
+      citations.push("Kiolbassa et al. (2011)");
+    }
+
+    // 2. Intellectual & Diagnostic Challenge (Chang et al. 2006)
+    if (specialty.vector.diagnostic_complexity >= 8.0 && diagVal >= 7) {
+      points.push(`Η έλξη σας για πολύπλοκα διαγνωστικά παζλ (${diagVal}/10) συνάδει με τον ρόλο του «Ιατρού-Ερευνητή». Στην ιεραρχική ανάλυση των <strong>Chang et al. (2006)</strong>, η προσωπική διανοητική ικανοποίηση (Personal Intelligence/Ability Preference) αναδείχθηκε ως το σημαντικότερο κριτήριο επιλογής ειδικότητας με τη μεγαλύτερη βαρύτητα (0.197).`);
+      citations.push("Chang et al. (2006)");
+    }
+
+    // 3. Controllable Lifestyle & Working Conditions (Resneck 2006, Sarikhani 2021)
+    const lifeVal = userVector["controllable_lifestyle"];
+    if (specialty.isRoad && lifeVal >= 7) {
+      points.push(`Η απαίτησή σας για προβλέψιμο εβδομαδιαίο ωράριο (${lifeVal}/10) καλύπτεται ιδανικά. Όπως περιγράφει ο <strong>Jack S. Resneck Jr. (2006)</strong> στο <em>American Medical Association Journal of Ethics</em>, οι ειδικότητες της κατηγορίας ROAD προσφέρουν κορυφαία επίπεδα ικανοποίησης ζωής (work-life balance) και χαμηλό κίνδυνο εξουθένωσης.`);
+      citations.push("Resneck (2006)");
+    } else if (!specialty.isRoad && specialty.vector.controllable_lifestyle <= 3.0 && lifeVal <= 4) {
+      points.push(`Η ετοιμότητά σας να αναλάβετε απαιτητικές εφημερίες και απρόβλεπτα ωράρια συνάδει με την πραγματικότητα της ${specialty.name}. Στη μελέτη των <strong>Sarikhani et al. (2021)</strong>, οι μη ελεγχόμενες κλινικές ειδικότητες προσελκύουν ιατρούς με υψηλή αφοσίωση στην άμεση νοσοκομειακή φροντίδα.`);
+      citations.push("Sarikhani et al. (2021)");
+    }
+
+    // 4. Psychological & Personality Traits (Peroš et al. 2025)
+    const stressVal = userVector["acute_stress_tolerance"];
+    const ambigVal = userVector["tolerance_ambiguity"];
+
+    if (specialty.vector.acute_stress_tolerance >= 8.5 && stressVal >= 7) {
+      points.push(`Η ψυχραιμία σας υπό πίεση (${stressVal}/10) συνάδει με τα πορίσματα της συστηματικής ανασκόπησης των <strong>Peroš et al. (2025)</strong>, όπου οι ιατροί οξέων και χειρουργικών πεδίων χαρακτηρίζονται από χαμηλό νευρωτισμό, αποφασιστικότητα και υψηλή αντοχή στο στρες.`);
+      citations.push("Peroš et al. (2025)");
+    }
+
+    if (specialty.vector.tolerance_ambiguity >= 8.5 && ambigVal >= 7) {
+      points.push(`Η υψηλή ανοχή σας στην κλινική αβεβαιότητα (${ambigVal}/10) αποτελεί καθοριστικό παράγοντα. Όπως τεκμηριώνουν οι <strong>Peroš et al. (2025)</strong>, η διάθεση για διαχείριση χρόνιων, πολυδιάστατων καταστάσεων χωρίς άμεση "ασπρόμαυρη" λύση είναι το σήμα κατατεθέν της συγκεκριμένης ειδικότητας.`);
+      citations.push("Peroš et al. (2025)");
+    }
+
+    // Fallback if few points were triggered
+    if (points.length < 2) {
+      points.push(`Το γενικό σας προφίλ παρουσιάζει σταθερή σύγκλιση με τα 10 επιστημονικά κριτήρια της ${specialty.name}, με μέση απόκλιση μόλις ${Math.round(specialty.weightedDistance * 9 * 10) / 10} μονάδες ανά παράμετρο.`);
+    }
+
+    return {
+      narrative: points.join(" "),
+      bulletPoints: points,
+      citations: Array.from(new Set(citations))
+    };
+  },
+
+  /**
+   * Calculates the user's 2D coordinate on the Petrides & McManus RIASEC Map
+   * @param {Object} userVector 
+   * @returns {Object} { x, y } coordinates in [-2.5, 2.5] space
+   */
+  calculateRiasecCoordinates: function(userVector) {
+    const thingsVal = Number(userVector["things_vs_people"]) || 5;
+    const patientVal = Number(userVector["patient_relationship"]) || 5;
+    const socialVal = Number(userVector["social_vs_technical"]) || 5;
+    const diagVal = Number(userVector["diagnostic_complexity"]) || 5;
+    const ambigVal = Number(userVector["tolerance_ambiguity"]) || 5;
+    const acadVal = Number(userVector["academic_research"]) || 5;
+    const envVal = Number(userVector["work_environment"]) || 5;
+
+    // Dimension 1: Things (-2.5) vs People (+2.5)
+    // Things: things_vs_people
+    // People: patient_relationship, social_vs_technical
+    const peopleScore = (patientVal * 0.55 + socialVal * 0.45);
+    const thingsScore = thingsVal;
+    // Normalized difference mapped to [-2.5, 2.5]
+    const xCoord = ((peopleScore - thingsScore) / 9.0) * 2.8;
+
+    // Dimension 2: Data (-2.0) vs Ideas (+2.0)
+    // Ideas: diagnostic_complexity, tolerance_ambiguity, academic_research
+    // Data: procedural/protocol execution, private clinic stability
+    const ideasScore = (diagVal * 0.50 + ambigVal * 0.25 + acadVal * 0.25);
+    const dataScore = (envVal * 0.35 + (11 - ambigVal) * 0.35 + (11 - diagVal) * 0.30);
+    const yCoord = ((ideasScore - dataScore) / 9.0) * 2.4;
+
+    return {
+      x: Math.max(-2.5, Math.min(2.5, Math.round(xCoord * 100) / 100)),
+      y: Math.max(-2.2, Math.min(2.5, Math.round(yCoord * 100) / 100))
+    };
+  }
+};
+
+
+/**
+ * MedSpecialty Navigator - Application Controller
+ * Manages UI rendering, slider interactions, calculation triggers,
+ * dynamic chart visualization, and scientific modal.
+ */
+
+document.addEventListener("DOMContentLoaded", function() {
+  const criteriaContainer = document.getElementById("criteriaContainer");
+  const presetsGrid = document.getElementById("presetsGrid");
+  const top5Container = document.getElementById("top5Container");
+  const rankingTableBody = document.getElementById("rankingTableBody");
+  const simulatorForm = document.getElementById("simulatorForm");
+  const liveUpdateToggle = document.getElementById("liveUpdateToggle");
+  const resetBtn = document.getElementById("resetBtn");
+  const specialtySearch = document.getElementById("specialtySearch");
+  const filterTabs = document.getElementById("filterTabs");
+  const docsModal = document.getElementById("docsModal");
+  const openDocsModalBtn = document.getElementById("openDocsModalBtn");
+  const closeDocsModalBtn = document.getElementById("closeDocsModalBtn");
+  const printReportBtn = document.getElementById("printReportBtn");
+  const papersListContainer = document.getElementById("papersListContainer");
+  const riasecCanvas = document.getElementById("riasecCanvas");
+
+  let currentCategoryFilter = "all";
+  let currentSearchQuery = "";
+  let lastCalculatedMatches = [];
+
+  // ===================================================================
+  // 1. Render Presets
+  // ===================================================================
+  function renderPresets() {
+    presetsGrid.innerHTML = "";
+    Object.keys(PRESETS).forEach(key => {
+      const p = PRESETS[key];
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "preset-btn";
+      btn.innerHTML = `
+        <i class="fa-solid ${p.icon}"></i>
+        <div>
+          <span>${p.name}</span>
+          <div style="font-size: 0.72rem; color: #64748b; font-weight: normal; margin-top: 2px;">${p.desc}</div>
+        </div>
+      `;
+      btn.addEventListener("click", () => applyPreset(key));
+      presetsGrid.appendChild(btn);
+    });
+  }
+
+  function applyPreset(presetKey) {
+    const preset = PRESETS[presetKey];
+    if (!preset) return;
+
+    Object.keys(preset.values).forEach(id => {
+      const slider = document.getElementById(`slider_${id}`);
+      const bubble = document.getElementById(`bubble_${id}`);
+      if (slider && bubble) {
+        slider.value = preset.values[id];
+        bubble.textContent = preset.values[id];
+        updateSliderFill(slider);
+      }
+    });
+
+    runCalculation();
+  }
+
+  // ===================================================================
+  // 2. Render Criteria Sliders by Category
+  // ===================================================================
+  const categoryHeaders = {
+    clinical: { title: "Τομέας Α: Κλινική Πράξη & Προσανατολισμός", icon: "fa-stethoscope", desc: "Petrides & McManus (2004), Kiolbassa et al. (2011), Chang et al. (2006)" },
+    lifestyle: { title: "Τομέας Β: Τρόπος Ζωής & Συνθήκες Εργασίας", icon: "fa-clock", desc: "Resneck (2006), Chang et al. (2006), Kiolbassa et al. (2011)" },
+    personality: { title: "Τομέας Γ: Προσωπικότητα & Γνωστικό Στυλ", icon: "fa-brain", desc: "Peroš et al. (2025), Petrides & McManus (2004)" },
+    ambition: { title: "Τομέας Δ: Επαγγελματικές Φιλοδοξίες & Ανταμοιβές", icon: "fa-chart-line", desc: "Chang et al. (2006), Sarikhani et al. (2021)" }
+  };
+
+  function renderCriteria() {
+    criteriaContainer.innerHTML = "";
+    const categories = ["clinical", "lifestyle", "personality", "ambition"];
+
+    categories.forEach(cat => {
+      const catMeta = categoryHeaders[cat];
+      const catCriteria = CRITERIA.filter(c => c.category === cat);
+
+      const sectionTitle = document.createElement("div");
+      sectionTitle.className = "criteria-section-title";
+      sectionTitle.innerHTML = `
+        <i class="fa-solid ${catMeta.icon}"></i>
+        <div>
+          <div>${catMeta.title}</div>
+          <div style="font-size: 0.74rem; font-weight: normal; color: #64748b;">${catMeta.desc}</div>
+        </div>
+      `;
+      criteriaContainer.appendChild(sectionTitle);
+
+      const grid = document.createElement("div");
+      grid.className = "criteria-grid";
+
+      catCriteria.forEach(crit => {
+        const card = document.createElement("div");
+        card.className = "criterion-card";
+        card.innerHTML = `
+          <div>
+            <div class="criterion-header">
+              <div class="criterion-title">${crit.title}</div>
+              <span class="criterion-weight" title="Βαρύτητα AHP κατά Chang et al. (2006)">Βαρύτητα: ${(crit.ahpWeight * 100).toFixed(1)}%</span>
+            </div>
+            <div class="criterion-desc">${crit.desc}</div>
+          </div>
+          <div class="slider-container">
+            <div class="slider-control-row">
+              <input type="range" class="slider-track" id="slider_${crit.id}" name="${crit.id}" min="1" max="10" step="1" value="5">
+              <div class="slider-value-bubble" id="bubble_${crit.id}">5</div>
+            </div>
+            <div class="slider-labels">
+              <span>${crit.minLabel}</span>
+              <span>${crit.maxLabel}</span>
+            </div>
+            <div class="criterion-source">
+              <i class="fa-solid fa-bookmark" style="font-size: 0.65rem;"></i> Πηγή: ${crit.source}
+            </div>
+          </div>
+        `;
+
+        const slider = card.querySelector(`#slider_${crit.id}`);
+        const bubble = card.querySelector(`#bubble_${crit.id}`);
+
+        slider.addEventListener("input", function() {
+          bubble.textContent = this.value;
+          updateSliderFill(this);
+          if (liveUpdateToggle.checked) {
+            runCalculation();
+          }
+        });
+
+        grid.appendChild(card);
+      });
+
+      criteriaContainer.appendChild(grid);
+    });
+
+    // Initialize slider fills
+    document.querySelectorAll(".slider-track").forEach(updateSliderFill);
+  }
+
+  function updateSliderFill(slider) {
+    const val = (slider.value - slider.min) / (slider.max - slider.min) * 100;
+    slider.style.background = `linear-gradient(to right, #0d9488 0%, #0d9488 ${val}%, #e2e8f0 ${val}%, #e2e8f0 100%)`;
+  }
+
+  // ===================================================================
+  // 3. User Vector Collection & Matching Execution
+  // ===================================================================
+  function getUserVector() {
+    const vector = {};
+    CRITERIA.forEach(crit => {
+      const slider = document.getElementById(`slider_${crit.id}`);
+      vector[crit.id] = slider ? Number(slider.value) : 5;
+    });
+    return vector;
+  }
+
+  function runCalculation() {
+    const userVector = getUserVector();
+    const matches = MatchEngine.calculateMatches(userVector);
+    lastCalculatedMatches = matches;
+
+    renderTop5(matches.slice(0, 5));
+    renderFullTable(matches);
+    updateRiasecMap(userVector, matches);
+  }
+
+  // ===================================================================
+  // 4. Render Top 5 Featured Showcase
+  // ===================================================================
+  function renderTop5(top5) {
+    top5Container.innerHTML = "";
+
+    top5.forEach((spec, idx) => {
+      const card = document.createElement("div");
+      card.className = `specialty-card rank-${spec.rank}`;
+
+      const bulletsHtml = spec.explanation.bulletPoints
+        .map(bp => `<li>${bp}</li>`)
+        .join("");
+
+      const citationsHtml = spec.explanation.citations
+        .map(cit => `<span class="citation-chip"><i class="fa-solid fa-quote-left"></i> ${cit}</span>`)
+        .join("");
+
+      const prosHtml = spec.pros.map(p => `<li>${p}</li>`).join("");
+      const consHtml = spec.cons.map(c => `<li>${c}</li>`).join("");
+
+      card.innerHTML = `
+        <div class="specialty-card-header">
+          <div class="specialty-title-group">
+            <div class="rank-pill">#${spec.rank}</div>
+            <div class="specialty-name-wrap">
+              <h3>${spec.name}</h3>
+              <div class="specialty-en">${spec.nameEn}</div>
+            </div>
+          </div>
+          <div class="score-badge-wrap">
+            <div class="score-number">${spec.matchScore}%</div>
+            <div class="score-label">Συμβατότητα</div>
+          </div>
+        </div>
+
+        <div class="specialty-tags-row">
+          <span class="meta-tag tag-category"><i class="fa-solid fa-folder"></i> ${spec.categoryName}</span>
+          <span class="meta-tag tag-holland" title="Τύπος σταδιοδρομίας κατά Holland (Petrides & McManus 2004)"><i class="fa-solid fa-shapes"></i> Holland: ${spec.hollandCode}</span>
+          <span class="meta-tag tag-lifestyle" title="Τρόπος ζωής κατά Resneck (2006)"><i class="fa-solid fa-heart-pulse"></i> Lifestyle: ${spec.lifestyleType}</span>
+        </div>
+
+        <div class="specialty-summary">
+          ${spec.summary}
+        </div>
+
+        <!-- Scientific Justification -->
+        <div class="justification-box">
+          <div class="justification-title">
+            <i class="fa-solid fa-microscope"></i> Γιατί σας ταιριάζει (Βιβλιογραφική Ανάλυση):
+          </div>
+          <ul class="justification-list">
+            ${bulletsHtml}
+          </ul>
+          <div class="citations-row">
+            <span style="font-size: 0.72rem; color: #64748b; font-weight: 600;">Επιστημονικές Πηγές:</span>
+            ${citationsHtml}
+          </div>
+        </div>
+
+        <!-- Pros & Cons -->
+        <div class="pros-cons-grid">
+          <div class="pro-box">
+            <div class="box-title"><i class="fa-solid fa-circle-check"></i> Βασικά Πλεονεκτήματα</div>
+            <ul class="box-list">
+              ${prosHtml}
+            </ul>
+          </div>
+          <div class="con-box">
+            <div class="box-title"><i class="fa-solid fa-triangle-exclamation"></i> Σημεία Προβληματισμού / Πίεσης</div>
+            <ul class="box-list">
+              ${consHtml}
+            </ul>
+          </div>
+        </div>
+      `;
+
+      top5Container.appendChild(card);
+    });
+  }
+
+  // ===================================================================
+  // 5. Render Full Ranking Table with Filter & Search
+  // ===================================================================
+  function renderFullTable(matches) {
+    rankingTableBody.innerHTML = "";
+
+    const filtered = matches.filter(spec => {
+      const matchesCategory = (currentCategoryFilter === "all") || (spec.category === currentCategoryFilter);
+      const matchesSearch = currentSearchQuery === "" ||
+        spec.name.toLowerCase().includes(currentSearchQuery.toLowerCase()) ||
+        spec.nameEn.toLowerCase().includes(currentSearchQuery.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
+
+    if (filtered.length === 0) {
+      rankingTableBody.innerHTML = `
+        <tr>
+          <td colspan="6" style="text-align: center; padding: 30px; color: #64748b;">
+            Δεν βρέθηκαν ειδικότητες με τα συγκεκριμένα κριτήρια αναζήτησης.
+          </td>
+        </tr>
+      `;
+      return;
+    }
+
+    filtered.forEach(spec => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td class="table-rank-cell">#${spec.rank}</td>
+        <td class="table-specialty-cell">
+          <strong>${spec.name}</strong>
+          <small>${spec.nameEn}</small>
+        </td>
+        <td><span class="meta-tag tag-category" style="padding: 2px 6px; font-size: 0.72rem;">${spec.categoryName}</span></td>
+        <td><span class="meta-tag tag-holland" style="padding: 2px 6px; font-size: 0.72rem;">${spec.hollandCode}</span></td>
+        <td><span class="meta-tag tag-lifestyle" style="padding: 2px 6px; font-size: 0.72rem;">${spec.lifestyleType}</span></td>
+        <td>
+          <div class="match-bar-wrap">
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width: ${spec.matchScore}%;"></div>
+            </div>
+            <span class="match-percent-text">${spec.matchScore}%</span>
+          </div>
+        </td>
+      `;
+      rankingTableBody.appendChild(tr);
+    });
+  }
+
+  // Search input handler
+  specialtySearch.addEventListener("input", function() {
+    currentSearchQuery = this.value.trim();
+    renderFullTable(lastCalculatedMatches);
+  });
+
+  // Filter tabs handler
+  filterTabs.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.addEventListener("click", function() {
+      filterTabs.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      this.classList.add("active");
+      currentCategoryFilter = this.dataset.category;
+      renderFullTable(lastCalculatedMatches);
+    });
+  });
+
+  // ===================================================================
+  // 6. Interactive 2D RIASEC Map (Petrides & McManus 2004)
+  // ===================================================================
+  function updateRiasecMap(userVector, matches) {
+    if (!riasecCanvas) return;
+    const ctx = riasecCanvas.getContext("2d");
+    const width = riasecCanvas.width;
+    const height = riasecCanvas.height;
+
+    // Clear canvas
+    ctx.clearRect(0, 0, width, height);
+
+    const padding = 50;
+    const originX = width / 2;
+    const originY = height / 2;
+    const scaleX = (width - padding * 2) / 5.2; // range [-2.6, 2.6]
+    const scaleY = (height - padding * 2) / 4.6; // range [-2.3, 2.3]
+
+    function toScreenX(x) { return originX + x * scaleX; }
+    function toScreenY(y) { return originY - y * scaleY; } // inverted Y in screen coords
+
+    // 1. Draw Grid & Background Quadrants
+    ctx.fillStyle = "#fafafa";
+    ctx.fillRect(0, 0, width, height);
+
+    // Subtle axes
+    ctx.strokeStyle = "#e2e8f0";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    // Horizontal axis
+    ctx.moveTo(padding, originY);
+    ctx.lineTo(width - padding, originY);
+    // Vertical axis
+    ctx.moveTo(originX, padding);
+    ctx.lineTo(originX, height - padding);
+    ctx.stroke();
+
+    // 2. Axes Labels
+    ctx.font = "bold 11px -apple-system, sans-serif";
+    ctx.fillStyle = "#64748b";
+
+    // X Axis (Things <-> People)
+    ctx.textAlign = "left";
+    ctx.fillText("◄ Things (Τεχνική / Χειρουργείο)", padding, originY - 8);
+    ctx.textAlign = "right";
+    ctx.fillText("People (Ψυχοκοινωνική / Σχέση) ►", width - padding, originY - 8);
+
+    // Y Axis (Data <-> Ideas)
+    ctx.textAlign = "center";
+    ctx.fillText("▲ Ideas (Παθοφυσιολογική Σύνθεση / Θεωρία)", originX, padding - 15);
+    ctx.fillText("▼ Data (Εργαστηριακά Πρωτόκολλα / Δεδομένα)", originX, height - padding + 22);
+
+    // 3. Draw Holland RIASEC Region Labels
+    ctx.font = "bold 13px -apple-system, sans-serif";
+    
+    // Realistic (Top-Left / Left)
+    ctx.fillStyle = "rgba(225, 29, 72, 0.4)";
+    ctx.fillText("REALISTIC [R]", toScreenX(-1.9), toScreenY(-0.8));
+
+    // Investigative (Top-Left / Top)
+    ctx.fillStyle = "rgba(13, 148, 136, 0.4)";
+    ctx.fillText("INVESTIGATIVE [I]", toScreenX(-1.4), toScreenY(1.9));
+
+    // Artistic (Top-Right)
+    ctx.fillStyle = "rgba(124, 58, 237, 0.4)";
+    ctx.fillText("ARTISTIC [A]", toScreenX(1.3), toScreenY(1.4));
+
+    // Social (Right)
+    ctx.fillStyle = "rgba(37, 99, 235, 0.4)";
+    ctx.fillText("SOCIAL [S]", toScreenX(1.7), toScreenY(0.2));
+
+    // Enterprising (Bottom-Right)
+    ctx.fillStyle = "rgba(217, 119, 6, 0.4)";
+    ctx.fillText("ENTERPRISING [E]", toScreenX(1.4), toScreenY(-1.4));
+
+    // Conventional (Bottom-Left)
+    ctx.fillStyle = "rgba(71, 85, 105, 0.4)";
+    ctx.fillText("CONVENTIONAL [C]", toScreenX(-0.3), toScreenY(-1.6));
+
+    // 4. Plot Specialties
+    const top5Ids = matches.slice(0, 5).map(m => m.id);
+
+    SPECIALTIES.forEach(spec => {
+      const sx = toScreenX(spec.riasecCoords.x);
+      const sy = toScreenY(spec.riasecCoords.y);
+      const isTop5 = top5Ids.includes(spec.id);
+
+      ctx.beginPath();
+      ctx.arc(sx, sy, isTop5 ? 6 : 4, 0, Math.PI * 2);
+
+      if (isTop5) {
+        ctx.fillStyle = "#0d9488";
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      } else {
+        ctx.fillStyle = "#94a3b8";
+      }
+      ctx.fill();
+
+      // Label for specialty
+      ctx.font = isTop5 ? "bold 10px -apple-system, sans-serif" : "9px -apple-system, sans-serif";
+      ctx.fillStyle = isTop5 ? "#0f172a" : "#64748b";
+      ctx.textAlign = "left";
+      ctx.fillText(spec.name, sx + 8, sy + 3);
+    });
+
+    // 5. Plot User Position
+    const userCoords = MatchEngine.calculateRiasecCoordinates(userVector);
+    const ux = toScreenX(userCoords.x);
+    const uy = toScreenY(userCoords.y);
+
+    // Glowing pulsating circle
+    ctx.beginPath();
+    ctx.arc(ux, uy, 12, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(245, 158, 11, 0.25)";
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(ux, uy, 7, 0, Math.PI * 2);
+    ctx.fillStyle = "#f59e0b";
+    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+    ctx.fill();
+
+    // User label
+    ctx.font = "bold 12px -apple-system, sans-serif";
+    ctx.fillStyle = "#b45309";
+    ctx.textAlign = "center";
+    ctx.fillText("ΕΣΕΙΣ", ux, uy - 12);
+
+    // Update text
+    const userCoordsText = document.getElementById("userCoordsText");
+    if (userCoordsText) {
+      userCoordsText.innerHTML = `Συντεταγμένες: <strong>X: ${userCoords.x > 0 ? "+" : ""}${userCoords.x}</strong> (${userCoords.x >= 0 ? "Προσανατολισμός σε Ανθρώπους" : "Προσανατολισμός σε Τεχνική"}), <strong>Y: ${userCoords.y > 0 ? "+" : ""}${userCoords.y}</strong> (${userCoords.y >= 0 ? "Διαγνωστικές Ιδέες & Σύνθεση" : "Δεδομένα & Πρωτόκολλα"}).`;
+    }
+  }
+
+  // ===================================================================
+  // 7. Render Scientific Documentation Modal Content
+  // ===================================================================
+  function renderPapersList() {
+    papersListContainer.innerHTML = "";
+    PAPERS_METADATA.forEach(p => {
+      const item = document.createElement("div");
+      item.className = "paper-item";
+      item.innerHTML = `
+        <div class="paper-title">${p.id}. ${p.title} (${p.year})</div>
+        <div class="paper-authors"><strong>Συγγραφείς:</strong> ${p.authors} | <em>${p.journal}</em> | DOI: <a href="https://doi.org/${p.doi}" target="_blank" rel="noopener noreferrer">${p.doi}</a></div>
+        <div class="paper-contribution">
+          <strong>Επιστημονική Συνεισφορά στο Εργαλείο:</strong> ${p.coreContribution}
+        </div>
+      `;
+      papersListContainer.appendChild(item);
+    });
+  }
+
+  // Modal open/close handlers
+  openDocsModalBtn.addEventListener("click", () => {
+    docsModal.classList.add("active");
+  });
+
+  closeDocsModalBtn.addEventListener("click", () => {
+    docsModal.classList.remove("active");
+  });
+
+  docsModal.addEventListener("click", (e) => {
+    if (e.target === docsModal) {
+      docsModal.classList.remove("active");
+    }
+  });
+
+  // Print Report Handler
+  printReportBtn.addEventListener("click", () => {
+    window.print();
+  });
+
+  // Form Submit Handler
+  simulatorForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    runCalculation();
+    const resultsEl = document.getElementById("results");
+    if (resultsEl) {
+      resultsEl.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+
+  // Reset Handler
+  resetBtn.addEventListener("click", function() {
+    CRITERIA.forEach(crit => {
+      const slider = document.getElementById(`slider_${crit.id}`);
+      const bubble = document.getElementById(`bubble_${crit.id}`);
+      if (slider && bubble) {
+        slider.value = 5;
+        bubble.textContent = 5;
+        updateSliderFill(slider);
+      }
+    });
+    runCalculation();
+  });
+
+  // ===================================================================
+  // Initialization
+  // ===================================================================
+  renderPresets();
+  renderCriteria();
+  renderPapersList();
+  runCalculation();
+});
+
+  </script>
+</body>
+</html>
